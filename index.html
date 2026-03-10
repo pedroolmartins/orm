@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultoria Online - Personal Trainer</title>
+    <title>ORM TEAM | Consultoria de Alta Performance</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,411 +14,508 @@
                 extend: {
                     colors: {
                         brand: {
-                            400: '#FACC15', // Amarelo
-                            500: '#EAB308', // Amarelo escuro
-                            600: '#CA8A04',
+                            400: '#D4AF37', // Dourado
+                            500: '#C5A028',
+                            600: '#997A15',
+                        },
+                        dark: {
+                            900: '#0A0A0A',
+                            800: '#141414',
+                            700: '#222222',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Extra para animações e detalhes finos */
         body {
-            background-color: #111827;
-            /* Gray 900 */
-            color: #ffffff;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Evita rolagem horizontal com as animações laterais */
         }
 
         .gradient-text {
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            background-image: linear-gradient(to right, #FACC15, #CA8A04);
+            background-image: linear-gradient(to right, #D4AF37, #F3E5AB);
         }
 
-        /* Animação suave para o FAQ */
-        .faq-answer {
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            max-height: 0;
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- CLASSES DE ANIMAÇÃO ESTILO APPLE --- */
+        .reveal {
             opacity: 0;
-            overflow: hidden;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Curva suave de desaceleração */
         }
 
-        .faq-answer.active {
-            max-height: 200px;
-            /* Valor aproximado para abrir */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Classe que o JS adiciona quando o elemento entra na tela */
+        .reveal.active,
+        .reveal-left.active,
+        .reveal-right.active,
+        .reveal-scale.active {
             opacity: 1;
+            transform: translate(0) scale(1);
+        }
+
+        /* Atrasos para efeito cascata (Stagger) */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+
+        .delay-500 {
+            transition-delay: 500ms;
         }
     </style>
 </head>
 
-<body class="font-sans antialiased">
+<body class="antialiased selection:bg-brand-500 selection:text-white" style="max-width: 100%;">
 
-    <nav class="fixed w-full z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 transition-all duration-300"
-        id="navbar">
+    <nav class="fixed w-full z-50 glass-panel border-b border-dark-700 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="text-2xl font-bold text-brand-400 tracking-tighter uppercase">Nome do Personal</div>
-
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#metodo" class="text-gray-300 hover:text-brand-400 transition text-sm font-medium">O
-                        Método</a>
-                    <a href="#resultados"
-                        class="text-gray-300 hover:text-brand-400 transition text-sm font-medium">Resultados</a>
-                    <a href="#faq" class="text-gray-300 hover:text-brand-400 transition text-sm font-medium">Dúvidas</a>
-                    <a href="#planos"
-                        class="bg-brand-600 hover:bg-brand-500 text-black font-bold py-2 px-6 rounded shadow-lg shadow-brand-500/20 transition transform hover:scale-105">
-                        Começar Agora
-                    </a>
+            <div class="flex items-center justify-between h-20">
+                <div class="text-3xl font-extrabold tracking-widest text-white uppercase">
+                    ORM <span class="text-brand-400">TEAM</span>
                 </div>
 
-                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-b border-gray-800">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#metodo"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">O
-                    Método</a>
-                <a href="#planos"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-brand-400 hover:text-white hover:bg-gray-700">Planos</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#para-quem" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Para
+                        Quem É</a>
+                    <a href="#metodo" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">O
+                        Método</a>
+                    <a href="#resultados"
+                        class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Resultados</a>
+                    <a href="#sobre" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Sobre
+                        Mim</a>
+                    <a href="#aplicacao"
+                        class="bg-brand-500 hover:bg-brand-400 text-black font-bold py-2 px-6 rounded-sm transition duration-300">
+                        Aplicar Agora
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div
-            class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full z-0 opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-yellow-900 via-gray-900 to-gray-900">
-        </div>
+    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div
-                class="inline-block mb-4 px-4 py-1 rounded-full bg-gray-800 border border-gray-700 text-brand-400 text-sm font-semibold tracking-wide uppercase">
-                Vagas limitadas para este mês
+                <div class="text-left space-y-8">
+                    <p
+                        class="reveal text-brand-400 font-semibold tracking-wide uppercase text-sm border-l-2 border-brand-400 pl-3">
+                        Consultoria Online para Adultos Ocupados
+                    </p>
+                    <h1
+                        class="reveal delay-100 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                        Alta Performance Física Não Exige Mais Tempo. <br>
+                        <span class="gradient-text">Exige Direção.</span>
+                    </h1>
+                    <p class="reveal delay-200 text-lg md:text-xl text-gray-400 leading-relaxed max-w-lg">
+                        Método estratégico para homens e mulheres produtivos que querem evoluir com precisão, e não
+                        viver na academia.
+                    </p>
+                    <div class="reveal delay-300 pt-4">
+                        <a href="#aplicacao"
+                            class="inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-black font-bold text-lg py-4 px-8 rounded-sm transition duration-300 w-full sm:w-auto text-center">
+                            → Solicitar Entrada na Consultoria
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative w-full mt-10 lg:mt-0 reveal-right delay-200">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent z-10">
+                    </div>
+                    <img src="img/WhatsApp Image 2026-02-25 at 08.33.20 (2).jpeg" alt="Treinador ORM TEAM"
+                        class="w-full h-[450px] lg:h-[600px] object-cover object-top lg:object-center rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                </div>
             </div>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-                Pare de treinar fofo e <br class="hidden md:block">
-                <span class="gradient-text">CONSTRUA UM SHAPE DE RESPEITO</span>
-            </h1>
-            <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400 leading-relaxed">
-                A mesma metodologia de atletas profissionais adaptada para sua rotina. Tenha treino, dieta e suporte
-                direto no seu WhatsApp.
-            </p>
-
-            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#planos"
-                    class="bg-brand-500 hover:bg-brand-400 text-gray-900 font-extrabold text-lg py-4 px-10 rounded-full shadow-xl shadow-brand-500/20 transform hover:scale-105 transition duration-300">
-                    QUERO MINHA CONSULTORIA
-                </a>
-                <a href="#metodo"
-                    class="flex items-center justify-center text-gray-300 hover:text-white font-semibold px-6 py-4 transition">
-                    Ver como funciona <span class="ml-2">↓</span>
-                </a>
-            </div>
-
-            <p class="mt-6 text-sm text-gray-500 flex items-center justify-center gap-2">
-                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd" />
-                </svg>
-                Compra 100% Segura • 7 dias de garantia
-            </p>
         </div>
     </header>
 
-    <section class="py-20 bg-gray-800/50 border-t border-gray-800">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12">Você se identifica com isso?</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div
-                    class="p-8 bg-gray-900 rounded-2xl border border-gray-700 hover:border-brand-500 transition duration-300">
-                    <div class="text-4xl mb-4">🛑</div>
-                    <h3 class="font-bold text-xl mb-3 text-white">Estagnado</h3>
-                    <p class="text-gray-400 leading-relaxed">Treina há meses (ou anos) e o corpo continua exatamente o
-                        mesmo no espelho.</p>
-                </div>
-                <div
-                    class="p-8 bg-gray-900 rounded-2xl border border-gray-700 hover:border-brand-500 transition duration-300">
-                    <div class="text-4xl mb-4">🥗</div>
-                    <h3 class="font-bold text-xl mb-3 text-white">Dieta Perdida</h3>
-                    <p class="text-gray-400 leading-relaxed">Gasta dinheiro com suplementos caros mas não sabe o básico
-                        do que comer.</p>
-                </div>
-                <div
-                    class="p-8 bg-gray-900 rounded-2xl border border-gray-700 hover:border-brand-500 transition duration-300">
-                    <div class="text-4xl mb-4">🤕</div>
-                    <h3 class="font-bold text-xl mb-3 text-white">Sem Técnica</h3>
-                    <p class="text-gray-400 leading-relaxed">Sente dores nas articulações, lesões frequentes e não sente
-                        o músculo trabalhar.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="metodo" class="py-24 relative">
+    <section id="para-quem" class="py-16 bg-dark-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Como funciona a Consultoria?</h2>
-                <p class="text-gray-400 text-lg">Não é apenas uma planilha. É um acompanhamento real.</p>
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">🎯 Para Quem é a Consultoria?
+                </h2>
+                <p class="text-gray-400">Criado para quem valoriza o tempo e busca excelência.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <div
-                    class="relative rounded-2xl overflow-hidden bg-gray-800 h-[500px] border border-gray-700 shadow-2xl flex items-center justify-center group">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"
-                        alt="Treino App"
-                        class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition duration-500">
-                    <span
-                        class="relative z-20 text-gray-300 font-bold text-xl bg-black/50 px-6 py-3 rounded-lg backdrop-blur-sm border border-gray-600">
-                        Seu treino na palma da mão 📱
-                    </span>
+                    class="reveal delay-100 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
+                    <span class="text-brand-400 text-xl mt-1">✔️</span>
+                    <p class="text-gray-300 font-medium">Pessoas com rotina corrida</p>
                 </div>
-
-                <div class="space-y-10">
-                    <div class="flex">
-                        <div
-                            class="flex-shrink-0 h-14 w-14 flex items-center justify-center rounded-xl bg-brand-600 text-white font-bold text-xl shadow-lg shadow-brand-500/20">
-                            1
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Anamnese Detalhada</h3>
-                            <p class="text-gray-400 leading-relaxed">Vamos entender sua rotina, limitações, histórico de
-                                lesões e objetivo. Nada de treino "copia e cola".</p>
-                        </div>
-                    </div>
-                    <div class="flex">
-                        <div
-                            class="flex-shrink-0 h-14 w-14 flex items-center justify-center rounded-xl bg-brand-600 text-white font-bold text-xl shadow-lg shadow-brand-500/20">
-                            2
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">App Exclusivo</h3>
-                            <p class="text-gray-400 leading-relaxed">Você recebe acesso ao aplicativo onde terá vídeos
-                                explicativos de cada execução. Controle de cargas e histórico.</p>
-                        </div>
-                    </div>
-                    <div class="flex">
-                        <div
-                            class="flex-shrink-0 h-14 w-14 flex items-center justify-center rounded-xl bg-brand-600 text-white font-bold text-xl shadow-lg shadow-brand-500/20">
-                            3
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Feedback & Ajustes</h3>
-                            <p class="text-gray-400 leading-relaxed">Envie vídeos dos exercícios para eu corrigir sua
-                                postura via WhatsApp. Ajustamos o plano conforme sua evolução.</p>
-                        </div>
-                    </div>
+                <div
+                    class="reveal delay-200 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
+                    <span class="text-brand-400 text-xl mt-1">✔️</span>
+                    <p class="text-gray-300 font-medium">Pessoas que treinam de 3 a 5 vezes por semana</p>
+                </div>
+                <div
+                    class="reveal delay-300 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
+                    <span class="text-brand-400 text-xl mt-1">✔️</span>
+                    <p class="text-gray-300 font-medium">Quem quer resultado sem desperdício de tempo</p>
+                </div>
+                <div
+                    class="reveal delay-400 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
+                    <span class="text-brand-400 text-xl mt-1">✔️</span>
+                    <p class="text-gray-300 font-medium">Quem não pode treinar 2 horas por dia</p>
+                </div>
+                <div
+                    class="reveal delay-500 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400 md:col-span-2 lg:col-span-1 lg:col-start-2">
+                    <span class="text-brand-400 text-xl mt-1">✔️</span>
+                    <p class="text-gray-300 font-medium">Quem quer um físico forte, estético e funcional</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="planos" class="py-24 bg-gray-800 border-t border-gray-700">
+    <section id="metodo" class="py-16 bg-dark-900 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Invista em Você</h2>
-                <p class="text-gray-400">Escolha o plano que melhor se adapta ao seu compromisso.</p>
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">Como Funciona?</h2>
+                <div class="w-20 h-1 bg-brand-500"></div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
+            <div class="grid md:grid-cols-2 gap-10">
                 <div
-                    class="bg-gray-900 rounded-3xl p-8 border border-gray-700 flex flex-col hover:border-gray-500 transition">
-                    <h3 class="text-xl font-semibold text-gray-300">Trimestral</h3>
-                    <div class="mt-4 flex items-baseline text-white">
-                        <span class="text-4xl font-extrabold tracking-tight">R$ 500</span>
-                        <span class="ml-1 text-xl font-semibold text-gray-500">/mês</span>
-                    </div>
-                    <ul class="mt-8 space-y-4 flex-1">
-                        <li class="flex text-gray-300 items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            Treino Personalizado</li>
-                        <li class="flex text-gray-300 items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            Suporte Básico</li>
-                        <li class="flex text-gray-600 items-start"><span class="mr-3 mt-1">✕</span> Sem análise de dieta
-                        </li>
+                    class="reveal-left delay-100 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <span class="text-brand-400 mr-3">🔹</span> Treino Inteligente
+                    </h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><span class="mr-2">•</span> Sessões objetivas (45–60 min)</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Volume controlado</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Foco em eficiência muscular</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Estratégia de progressão clara</li>
                     </ul>
-                    <a href="https://pay.kiwify.com.br/BYz7G6D" target="_blank"
-                        class="mt-8 block w-full bg-gray-700 hover:bg-gray-600 text-white text-center font-bold py-4 rounded-xl transition">
-                        Assinar Trimestral
-                    </a>
                 </div>
 
                 <div
-                    class="bg-gray-900 rounded-3xl p-8 border-2 border-brand-500 relative transform md:-translate-y-6 flex flex-col shadow-2xl shadow-brand-500/10 z-10">
-                    <div class="absolute top-0 right-0 left-0 -mt-4 flex justify-center">
-                        <span
-                            class="bg-brand-500 text-black text-xs font-bold uppercase px-4 py-1 rounded-full shadow-lg">
-                            Melhor Custo-Benefício
-                        </span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-brand-400">Semestral</h3>
-                    <div class="mt-4 flex items-baseline text-white">
-                        <span class="text-5xl font-extrabold tracking-tight">R$ 383</span>
-                        <span class="ml-1 text-xl font-semibold text-gray-500">/mês</span>
-                    </div>
-                    <!-- <p class="text-sm text-gray-500 mt-2">Cobrado R$ 383 a cada 3 meses</p> -->
-
-                    <div class="my-6 border-t border-gray-800"></div>
-
-                    <ul class="space-y-4 flex-1">
-                        <li class="flex text-white items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            <strong>Treino Personalizado</strong>
+                    class="reveal-right delay-200 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <span class="text-brand-400 mr-3">🔹</span> Estratégia Alimentar Adaptável
+                    </h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><span class="mr-2">•</span> Planejamento que cabe na sua rotina
                         </li>
-                        <li class="flex text-white items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            <strong>Suporte WhatsApp VIP</strong>
-                        </li>
-                        <li class="flex text-white items-start"><span class="text-brand-400 mr-3 mt-1">✓</span> Sugestão
-                            Alimentar (Macros)</li>
-                        <li class="flex text-white items-start"><span class="text-brand-400 mr-3 mt-1">✓</span> Correção
-                            de execução por vídeo</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Sem dieta impossível</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Ajustes conforme resposta do corpo</li>
                     </ul>
-                    <a href="https://pay.kiwify.com.br/xSUqPQy" target="_blank"
-                        class="mt-8 block w-full bg-brand-500 hover:bg-brand-400 text-black text-center font-extrabold py-4 rounded-xl transition hover:shadow-lg hover:shadow-brand-500/20">
-                        GARANTIR VAGA
-                    </a>
                 </div>
 
                 <div
-                    class="bg-gray-900 rounded-3xl p-8 border border-gray-700 flex flex-col hover:border-gray-500 transition">
-                    <h3 class="text-xl font-semibold text-gray-300">Anual</h3>
-                    <div class="mt-4 flex items-baseline text-white">
-                        <span class="text-4xl font-extrabold tracking-tight">R$ 291</span>
-                        <span class="ml-1 text-xl font-semibold text-gray-500">/mês</span>
-                    </div>
-                    <!-- <p class="text-sm text-gray-500 mt-2">Cobrado R$ 1068 por ano</p> -->
-                    <ul class="mt-8 space-y-4 flex-1">
-                        <li class="flex text-gray-300 items-start"><span class="text-brand-400 mr-3 mt-1">✓</span> Tudo
-                            do Trimestral</li>
-                        <li class="flex text-gray-300 items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            Acesso ao Grupo VIP</li>
-                        <li class="flex text-gray-300 items-start"><span class="text-brand-400 mr-3 mt-1">✓</span>
-                            Prioridade total</li>
+                    class="reveal-left delay-300 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <span class="text-brand-400 mr-3">🔹</span> Avaliação Estrutural
+                    </h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><span class="mr-2">•</span> Análise postural por fotos</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Correção de padrões de movimento</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Direcionamento para construção
+                            proporcional</li>
                     </ul>
-                    <a href="https://pay.kiwify.com.br/68f9Mcr" target="_blank"
-                        class="mt-8 block w-full bg-gray-700 hover:bg-gray-600 text-white text-center font-bold py-4 rounded-xl transition">
-                        Assinar Anual
-                    </a>
                 </div>
 
+                <div
+                    class="reveal-right delay-400 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <span class="text-brand-400 mr-3">🔹</span> Acompanhamento Estratégico
+                    </h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start"><span class="mr-2">•</span> Ajustes frequentes</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Análise de execução</li>
+                        <li class="flex items-start"><span class="mr-2">•</span> Direcionamento direto comigo</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="py-20 max-w-3xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-10 text-white">Dúvidas Frequentes</h2>
-        <div class="space-y-4">
+    <section class="py-20 bg-brand-600 text-black overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="reveal text-3xl font-extrabold mb-6 uppercase tracking-wider">Diferencial ORM TEAM</h2>
+            <p class="reveal delay-100 text-xl md:text-2xl font-semibold mb-8">
+                Aqui não é sobre "treinar até queimar". <br>
+                É sobre treinar com inteligência metabólica e estrutural.
+            </p>
+            <div class="grid md:grid-cols-2 gap-4 text-left max-w-3xl mx-auto font-medium text-lg">
+                <div class="reveal-left delay-200 bg-black/10 p-4 rounded flex items-center">
+                    <span class="mr-3 text-2xl">🔥</span> Método baseado em ciência do treinamento
+                </div>
+                <div class="reveal-right delay-300 bg-black/10 p-4 rounded flex items-center">
+                    <span class="mr-3 text-2xl">🎯</span> Estratégia focada em resultado real
+                </div>
+                <div class="reveal-left delay-400 bg-black/10 p-4 rounded flex items-center">
+                    <span class="mr-3 text-2xl">⚖️</span> Controle de volume, intensidade e recuperação
+                </div>
+                <div class="reveal-right delay-500 bg-black/10 p-4 rounded flex items-center">
+                    <span class="mr-3 text-2xl">🏆</span> Construção de físico de alto nível
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
-                <button
-                    class="faq-toggle w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center hover:bg-gray-700/50 transition">
-                    <span class="font-semibold text-lg text-white">Como recebo meu treino?</span>
-                    <span class="faq-icon text-brand-400 font-bold text-2xl transition-transform duration-300">+</span>
-                </button>
-                <div class="faq-answer bg-gray-900/50">
-                    <p class="px-6 pb-6 pt-2 text-gray-400">Após a confirmação do pagamento, você receberá um email para
-                        acessar nosso aplicativo exclusivo. Todo seu treino estará lá com vídeos explicativos.</p>
+    <section id="resultados" class="py-16 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Resultados Reais</h2>
+                <p class="text-gray-400">Evoluções estéticas construídas com precisão e método.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="reveal-scale delay-100 rounded-lg overflow-hidden border border-dark-700">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.34.jpeg" alt="Antes e Depois 1"
+                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="reveal-scale delay-200 rounded-lg overflow-hidden border border-dark-700">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.35.jpeg" alt="Antes e Depois 2"
+                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="reveal-scale delay-300 rounded-lg overflow-hidden border border-dark-700">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59 (1).jpeg" alt="Antes e Depois 3"
+                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="reveal-scale delay-400 rounded-lg overflow-hidden border border-dark-700">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59.jpeg" alt="Antes e Depois 4"
+                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
                 </div>
             </div>
 
-            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
-                <button
-                    class="faq-toggle w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center hover:bg-gray-700/50 transition">
-                    <span class="font-semibold text-lg text-white">Tenho suporte para dúvidas?</span>
-                    <span class="faq-icon text-brand-400 font-bold text-2xl transition-transform duration-300">+</span>
-                </button>
-                <div class="faq-answer bg-gray-900/50">
-                    <p class="px-6 pb-6 pt-2 text-gray-400">Sim! Nos planos Trimestral e Anual você tem acesso direto ao
-                        meu WhatsApp pessoal para tirar dúvidas e enviar vídeos dos exercícios para correção de postura.
+            <div
+                class="reveal delay-300 mt-20 glass-panel p-6 md:p-10 rounded-xl text-center max-w-4xl mx-auto border-t-4 border-t-brand-400">
+                <h3 class="text-2xl font-bold mb-6 text-white">Resultados Esperados</h3>
+                <div class="flex flex-col md:flex-row flex-wrap justify-center gap-4 md:gap-6 text-left md:text-center">
+                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">🚀</span> Evolução
+                        estética consistente</span>
+                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">💪</span> Mais força
+                        e presença</span>
+                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">⚡</span> Mais
+                        energia no dia a dia</span>
+                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">🎯</span> Disciplina
+                        aplicada à vida</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="py-16 bg-dark-800 border-t border-dark-700 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal-right text-center lg:text-left flex justify-center">
+                <h2 class="text-3xl font-extrabold text-white mb-12 tracking-tight uppercase">Sobre Mim</h2>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <div class="reveal-left relative lg:mb-0">
+                    <img src="img/WhatsApp Image 2026-02-25 at 08.33.21.jpeg" alt="Sobre o Treinador"
+                        class="w-full max-w-md mx-auto rounded-lg shadow-2xl border border-dark-700 grayscale hover:grayscale-0 transition duration-500">
+                    <div
+                        class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30">
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-gray-300 leading-relaxed text-lg">
+                    <p class="reveal-right delay-100 font-semibold text-white text-xl border-l-2 border-brand-400 pl-4">
+                        "Eu não entrei na área por acaso."
                     </p>
+
+                    <p class="reveal-right delay-200">Sou <strong class="text-white">ex-obeso.</strong> Transformei meu
+                        próprio corpo. Reconstruí minha identidade através da
+                        <strong class="text-white">disciplina.</strong>
+                    </p>
+                    <p class="reveal-right delay-300">Escolhi essa profissão por opção — não por conveniência.</p>
+                    <p class="reveal-right delay-400">Ao longo dos anos, mudei meu físico diversas vezes. Vivi fases de
+                        emagrecimento, construção
+                        muscular e preparação competitiva. <strong class="text-white">Competi no fisiculturismo
+                        </strong>e conquistei <strong class="text-white">cinco troféus como atleta</strong>.</p>
+                    <p class="reveal-right delay-500">Como treinador, acumulo <strong class="text-brand-400">mais de 20
+                            troféus</strong> preparando
+                        atletas e acompanhando evoluções reais.</p>
+
+                    <div class="reveal delay-200 my-6 p-6 bg-dark-900 border border-dark-700 rounded-lg">
+                        <p class="italic text-gray-400 text-center text-xl">Mas a consultoria não é sobre
+                            palco.<br><strong class="text-white">É sobre performance na vida real.</strong></p>
+                    </div>
+
+                    <p class="reveal-right delay-200">Hoje, aplico o mesmo nível de estratégia utilizado em preparação
+                        competitiva — adaptado para
+                        homens e mulheres que querem evoluir sem viver como atletas.</p>
+                    <p class="reveal-right delay-300">Minha abordagem une experiência prática, ciência do treinamento e
+                        controle absoluto de variáveis.</p>
+
+                    <p class="reveal-right delay-400 font-semibold text-white">Porque eu já estive dos dois lados:<br>
+                        <span class="text-brand-400">Do extremo da transformação. E do alto nível de performance.</span>
+                    </p>
+
+                    <p class="reveal-scale delay-500 text-xl font-bold text-white uppercase mt-4">A ORM TEAM é o
+                        equilíbrio entre esses dois mundos.</p>
                 </div>
             </div>
-
-            <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
-                <button
-                    class="faq-toggle w-full text-left px-6 py-5 focus:outline-none flex justify-between items-center hover:bg-gray-700/50 transition">
-                    <span class="font-semibold text-lg text-white">Serve para iniciantes?</span>
-                    <span class="faq-icon text-brand-400 font-bold text-2xl transition-transform duration-300">+</span>
-                </button>
-                <div class="faq-answer bg-gray-900/50">
-                    <p class="px-6 pb-6 pt-2 text-gray-400">Com certeza. O planejamento é montado 100% em cima do seu
-                        nível atual, equipamentos disponíveis e limitações.</p>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <footer class="bg-black py-10 border-t border-gray-900 text-center">
-        <p class="text-gray-500 text-sm mb-2">&copy; 2026 Nome do Personal. Todos os direitos reservados.</p>
-        <p class="text-gray-600 text-xs">Desenvolvido com foco em alta performance.</p>
+    <!-- <section id="aplicacao"
+        class="py-16 bg-dark-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-dark-800 via-dark-900 to-dark-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">📋 Aplicação</h2>
+                <p class="text-gray-400">Preencha o formulário abaixo para analisarmos o seu perfil. Entraremos em
+                    contato via WhatsApp.</p>
+            </div>
+
+            <form class="reveal delay-200 glass-panel p-6 md:p-10 rounded-xl space-y-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Nome Completo</label>
+                        <input type="text" placeholder="Seu nome"
+                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
+                            required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Idade</label>
+                        <input type="number" placeholder="Sua idade"
+                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
+                            required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Profissão</label>
+                    <input type="text" placeholder="Com o que você trabalha?"
+                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
+                        required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Rotina de treino atual</label>
+                    <textarea rows="2" placeholder="Ex: Treino 3x na semana, mas sem constância..."
+                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
+                        required></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Objetivo principal</label>
+                    <input type="text" placeholder="Ex: Perder gordura, Ganhar massa, Melhorar postura"
+                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
+                        required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Disponibilidade semanal</label>
+                        <select
+                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-gray-300 focus:outline-none focus:border-brand-500 transition"
+                            required>
+                            <option value="">Selecione...</option>
+                            <option value="2-3">2 a 3 dias na semana</option>
+                            <option value="4-5">4 a 5 dias na semana</option>
+                            <option value="6-7">6 a 7 dias na semana</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Investimento previsto</label>
+                        <select
+                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-gray-300 focus:outline-none focus:border-brand-500 transition"
+                            required>
+                            <option value="">Selecione...</option>
+                            <option value="mensal">Mensal</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="anual">Anual</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-dark-700 mt-6">
+                    <button type="button"
+                        class="w-full bg-brand-500 hover:bg-brand-400 text-black font-extrabold text-xl py-5 rounded-sm shadow-lg shadow-brand-500/20 transform hover:scale-[1.02] transition duration-300">
+                        👉 Aplicar para Consultoria
+                    </button>
+                    <p class="text-center text-xs text-gray-500 mt-4">Suas informações estão seguras. Analisaremos seu
+                        perfil para garantir que a metodologia é ideal para você.</p>
+                </div>
+            </form>
+        </div>
+    </section> -->
+
+    <footer class="bg-black py-10 border-t border-dark-800 text-center">
+        <div class="reveal text-2xl font-extrabold tracking-widest text-white uppercase mb-4">
+            ORM <span class="text-brand-400">TEAM</span>
+        </div>
+        <p class="reveal delay-100 text-gray-500 text-sm mb-2">&copy; 2026 ORM TEAM. Todos os direitos reservados.</p>
+        <p class="reveal delay-200 text-gray-600 text-xs">Desenvolvido para Alta Performance.</p>
     </footer>
 
-    <a href="#"
-        class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg shadow-green-500/30 transition transform hover:scale-110 flex items-center justify-center">
-        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-        </svg>
-    </a>
-
     <script>
-        // 1. FAQ Logic
-        document.querySelectorAll('.faq-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('.faq-icon');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Configurações do observador
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // A animação dispara quando 15% do elemento estiver visível na tela
+            };
 
-                // Toggle a classe 'active' para abrir/fechar com animação CSS
-                if (answer.classList.contains('active')) {
-                    answer.classList.remove('active');
-                    icon.textContent = '+';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Opcional: Fechar outros itens ao abrir um
-                    document.querySelectorAll('.faq-answer').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    document.querySelectorAll('.faq-icon').forEach(i => {
-                        i.textContent = '+';
-                        i.style.transform = 'rotate(0deg)';
-                    });
+            // Função que adiciona a classe 'active' aos elementos
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Descomente a linha abaixo se quiser que a animação aconteça APENAS UMA VEZ
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-                    answer.classList.add('active');
-                    icon.textContent = '-';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
+            // Seleciona todos os elementos que têm as classes de revelação
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
 
-        // 2. Mobile Menu Logic
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // 3. Navbar Blur on Scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md');
-                navbar.classList.replace('bg-gray-900/95', 'bg-gray-900/100');
-            } else {
-                navbar.classList.remove('shadow-md');
-                navbar.classList.replace('bg-gray-900/100', 'bg-gray-900/95');
-            }
+            // Inicia a observação para cada elemento
+            revealElements.forEach(el => observer.observe(el));
         });
     </script>
 </body>
