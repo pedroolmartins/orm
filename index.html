@@ -5,32 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORM TEAM | Consultoria de Alta Performance</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            400: '#D4AF37', // Dourado
-                            500: '#C5A028',
-                            600: '#997A15',
-                        },
-                        dark: {
-                            900: '#0A0A0A',
-                            800: '#141414',
-                            700: '#222222',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
@@ -39,14 +14,14 @@
             color: #E5E5E5;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Evita rolagem horizontal com as animações laterais */
         }
 
         .gradient-text {
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            background-image: linear-gradient(to right, #D4AF37, #F3E5AB);
+            /* Mantido um pouco mais claro para dar leitura no título */
+            background-image: linear-gradient(to right, #B00B0B, #FF4D4D);
         }
 
         .glass-panel {
@@ -60,7 +35,6 @@
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Curva suave de desaceleração */
         }
 
         .reveal-left {
@@ -81,7 +55,6 @@
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Classe que o JS adiciona quando o elemento entra na tela */
         .reveal.active,
         .reveal-left.active,
         .reveal-right.active,
@@ -90,7 +63,6 @@
             transform: translate(0) scale(1);
         }
 
-        /* Atrasos para efeito cascata (Stagger) */
         .delay-100 {
             transition-delay: 100ms;
         }
@@ -110,6 +82,41 @@
         .delay-500 {
             transition-delay: 500ms;
         }
+
+        /* Animação para o botão pulsar e brilhar continuamente */
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px #8A0505;
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 35px #B00B0B, 0 0 15px #B00B0B;
+                transform: scale(1.03);
+            }
+        }
+
+        .btn-pulse-glow {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+
+        /* CARROSSEL */
+        /* Esconder barra de rolagem do carrossel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE e Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            scroll-behavior: smooth;
+            /* Rolagem suave ao clicar nos botões */
+        }
     </style>
 </head>
 
@@ -118,23 +125,38 @@
     <nav class="fixed w-full z-50 glass-panel border-b border-dark-700 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="text-3xl font-extrabold tracking-widest text-white uppercase">
-                    ORM <span class="text-brand-400">TEAM</span>
+                <div class="text-3xl font-extrabold tracking-widest text-white">
+                    <a href="#">ORM <span class="text-brand-500">TEAM</span></a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#para-quem" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Para
-                        Quem É</a>
-                    <a href="#metodo" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">O
-                        Método</a>
+                <button id="mobile-menu-btn"
+                    class="md:hidden flex items-center text-gray-300 hover:text-brand-400 focus:outline-none transition-colors">
+                    <svg id="icon-bars" class="w-8 h-8 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                    <svg id="icon-close" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div id="nav-links"
+                    class="hidden md:flex absolute md:static top-20 left-0 w-full md:w-auto bg-dark-900 glass-panel md:bg-transparent border-b border-dark-700 md:border-none py-8 md:py-0 flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 shadow-2xl md:shadow-none">
                     <a href="#resultados"
-                        class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Resultados</a>
-                    <a href="#sobre" class="text-sm font-medium text-gray-400 hover:text-brand-400 transition">Sobre
+                        class="text-base md:text-sm font-medium text-gray-400 hover:text-brand-400 transition">Resultados</a>
+                    <a href="#depoimentos"
+                        class="text-base md:text-sm font-medium text-gray-400 hover:text-brand-400 transition">Depoimentos</a>
+                    <a href="#metodo"
+                        class="text-base md:text-sm font-medium text-gray-400 hover:text-brand-400 transition">O
+                        Método</a>
+                    <a href="#sobre"
+                        class="text-base md:text-sm font-medium text-gray-400 hover:text-brand-400 transition">Sobre
                         Mim</a>
-                    <a href="#aplicacao"
-                        class="bg-brand-500 hover:bg-brand-400 text-black font-bold py-2 px-6 rounded-sm transition duration-300">
-                        Aplicar Agora
-                    </a>
+                    <!-- <a href="#aplicacao"
+                        class="btn-pulse-glow inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold py-3 md:py-4 px-8 rounded-[8px] transition-colors duration-300 w-[90%] md:w-auto text-center">
+                        ⚡ QUERO TRANFORMAR MEU FÍSICO
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -146,23 +168,32 @@
 
                 <div class="text-left space-y-8">
                     <p
-                        class="reveal text-brand-400 font-semibold tracking-wide uppercase text-sm border-l-2 border-brand-400 pl-3">
-                        Consultoria Online para Adultos Ocupados
+                        class="reveal text-brand-400 font-bold tracking-widest uppercase text-xs sm:text-sm border-l-2 border-brand-400 pl-3">
+                        Acompanhamento VIP • Método Validado
                     </p>
-                    <h1
-                        class="reveal delay-100 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
-                        Alta Performance Física Não Exige Mais Tempo. <br>
-                        <span class="gradient-text">Exige Direção.</span>
+                    <h1 class="reveal delay-100 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white custom-line-height"
+                        style="line-height: 1.2">
+                        Conquiste o físico que <span class="gradient-text">VOCÊ QUER,</span> <br> sem a enrolação <span
+                            class="gradient-text">QUE VOCÊ ODEIA.</span>
                     </h1>
-                    <p class="reveal delay-200 text-lg md:text-xl text-gray-400 leading-relaxed max-w-lg">
-                        Método estratégico para homens e mulheres produtivos que querem evoluir com precisão, e não
-                        viver na academia.
+
+                    <p class="reveal text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl">
+                        Chega de desperdiçar energia com fichas de gaveta e dietas insustentáveis. O que te separa do
+                        seu objetivo é uma <strong class="text-white">estratégia de alta performance, cirúrgica e direta
+                            ao ponto</strong>. Você garante a disciplina e eu construo o mapa definitivo para a sua
+                        evolução.
                     </p>
-                    <div class="reveal delay-300 pt-4">
+
+                    <div class="reveal delay-300 pt-4 flex flex-col items-center gap-3">
                         <a href="#aplicacao"
-                            class="inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-black font-bold text-lg py-4 px-8 rounded-sm transition duration-300 w-full sm:w-auto text-center">
-                            → Solicitar Entrada na Consultoria
+                            class="btn-pulse-glow inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold text-lg py-4 px-8 rounded-[8px] border border-brand-400/30 transition-colors duration-300 w-full sm:w-auto text-center">
+                            ⚡ ENTRAR PARA CONSULTORIA VIP
                         </a>
+
+                        <div class="flex items-center text-sm text-white font-medium ml-1 mt-2">
+                            <span class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse mr-2"></span>
+                            Poucas vagas disponíveis em&nbsp;<span id="month" class="font-bold text-white"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -172,350 +203,769 @@
                     <img src="img/WhatsApp Image 2026-02-25 at 08.33.20 (2).jpeg" alt="Treinador ORM TEAM"
                         class="w-full h-[450px] lg:h-[600px] object-cover object-top lg:object-center rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
                 </div>
+
             </div>
         </div>
     </header>
 
-    <section id="para-quem" class="py-16 bg-dark-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">🎯 Para Quem é a Consultoria?
+    <section id="resultados" class="py-24 bg-dark-800 relative overflow-hidden">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-500/5 rounded-full blur-[120px] pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <div class="text-center mb-16 reveal flex flex-col items-center">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
+                    Resultados <span class="gradient-text">Incontestáveis</span>
                 </h2>
-                <p class="text-gray-400">Criado para quem valoriza o tempo e busca excelência.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div
-                    class="reveal delay-100 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
-                    <span class="text-brand-400 text-xl mt-1">✔️</span>
-                    <p class="text-gray-300 font-medium">Pessoas com rotina corrida</p>
-                </div>
-                <div
-                    class="reveal delay-200 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
-                    <span class="text-brand-400 text-xl mt-1">✔️</span>
-                    <p class="text-gray-300 font-medium">Pessoas que treinam de 3 a 5 vezes por semana</p>
-                </div>
-                <div
-                    class="reveal delay-300 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
-                    <span class="text-brand-400 text-xl mt-1">✔️</span>
-                    <p class="text-gray-300 font-medium">Quem quer resultado sem desperdício de tempo</p>
-                </div>
-                <div
-                    class="reveal delay-400 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400">
-                    <span class="text-brand-400 text-xl mt-1">✔️</span>
-                    <p class="text-gray-300 font-medium">Quem não pode treinar 2 horas por dia</p>
-                </div>
-                <div
-                    class="reveal delay-500 glass-panel p-6 rounded-lg flex items-start space-x-4 border-l-4 border-l-brand-400 md:col-span-2 lg:col-span-1 lg:col-start-2">
-                    <span class="text-brand-400 text-xl mt-1">✔️</span>
-                    <p class="text-gray-300 font-medium">Quem quer um físico forte, estético e funcional</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="metodo" class="py-16 bg-dark-900 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">Como Funciona?</h2>
-                <div class="w-20 h-1 bg-brand-500"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-10">
-                <div
-                    class="reveal-left delay-100 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
-                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <span class="text-brand-400 mr-3">🔹</span> Treino Inteligente
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start"><span class="mr-2">•</span> Sessões objetivas (45–60 min)</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Volume controlado</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Foco em eficiência muscular</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Estratégia de progressão clara</li>
-                    </ul>
-                </div>
+                <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                    Não é sobre ter a rotina perfeita ou genética privilegiada. É sobre <strong
+                        class="text-white">estratégia, precisão e constância</strong>. Evoluções estéticas construídas
+                    com método.
+                </p>
 
                 <div
-                    class="reveal-right delay-200 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
-                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <span class="text-brand-400 mr-3">🔹</span> Estratégia Alimentar Adaptável
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start"><span class="mr-2">•</span> Planejamento que cabe na sua rotina
-                        </li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Sem dieta impossível</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Ajustes conforme resposta do corpo</li>
-                    </ul>
-                </div>
-
-                <div
-                    class="reveal-left delay-300 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
-                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <span class="text-brand-400 mr-3">🔹</span> Avaliação Estrutural
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start"><span class="mr-2">•</span> Análise postural por fotos</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Correção de padrões de movimento</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Direcionamento para construção
-                            proporcional</li>
-                    </ul>
-                </div>
-
-                <div
-                    class="reveal-right delay-400 bg-dark-800 p-8 rounded-lg border border-dark-700 hover:border-brand-500/50 transition">
-                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <span class="text-brand-400 mr-3">🔹</span> Acompanhamento Estratégico
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-start"><span class="mr-2">•</span> Ajustes frequentes</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Análise de execução</li>
-                        <li class="flex items-start"><span class="mr-2">•</span> Direcionamento direto comigo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-brand-600 text-black overflow-hidden">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <h2 class="reveal text-3xl font-extrabold mb-6 uppercase tracking-wider">Diferencial ORM TEAM</h2>
-            <p class="reveal delay-100 text-xl md:text-2xl font-semibold mb-8">
-                Aqui não é sobre "treinar até queimar". <br>
-                É sobre treinar com inteligência metabólica e estrutural.
-            </p>
-            <div class="grid md:grid-cols-2 gap-4 text-left max-w-3xl mx-auto font-medium text-lg">
-                <div class="reveal-left delay-200 bg-black/10 p-4 rounded flex items-center">
-                    <span class="mr-3 text-2xl">🔥</span> Método baseado em ciência do treinamento
-                </div>
-                <div class="reveal-right delay-300 bg-black/10 p-4 rounded flex items-center">
-                    <span class="mr-3 text-2xl">🎯</span> Estratégia focada em resultado real
-                </div>
-                <div class="reveal-left delay-400 bg-black/10 p-4 rounded flex items-center">
-                    <span class="mr-3 text-2xl">⚖️</span> Controle de volume, intensidade e recuperação
-                </div>
-                <div class="reveal-right delay-500 bg-black/10 p-4 rounded flex items-center">
-                    <span class="mr-3 text-2xl">🏆</span> Construção de físico de alto nível
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="resultados" class="py-16 bg-dark-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Resultados Reais</h2>
-                <p class="text-gray-400">Evoluções estéticas construídas com precisão e método.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="reveal-scale delay-100 rounded-lg overflow-hidden border border-dark-700">
-                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.34.jpeg" alt="Antes e Depois 1"
-                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
-                </div>
-                <div class="reveal-scale delay-200 rounded-lg overflow-hidden border border-dark-700">
-                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.35.jpeg" alt="Antes e Depois 2"
-                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
-                </div>
-                <div class="reveal-scale delay-300 rounded-lg overflow-hidden border border-dark-700">
-                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59 (1).jpeg" alt="Antes e Depois 3"
-                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
-                </div>
-                <div class="reveal-scale delay-400 rounded-lg overflow-hidden border border-dark-700">
-                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59.jpeg" alt="Antes e Depois 4"
-                        class="w-full h-auto object-cover hover:scale-105 transition duration-500">
-                </div>
-            </div>
-
-            <div
-                class="reveal delay-300 mt-20 glass-panel p-6 md:p-10 rounded-xl text-center max-w-4xl mx-auto border-t-4 border-t-brand-400">
-                <h3 class="text-2xl font-bold mb-6 text-white">Resultados Esperados</h3>
-                <div class="flex flex-col md:flex-row flex-wrap justify-center gap-4 md:gap-6 text-left md:text-center">
-                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">🚀</span> Evolução
-                        estética consistente</span>
-                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">💪</span> Mais força
-                        e presença</span>
-                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">⚡</span> Mais
-                        energia no dia a dia</span>
-                    <span class="flex items-center text-gray-300"><span class="text-brand-400 mr-2">🎯</span> Disciplina
-                        aplicada à vida</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="sobre" class="py-16 bg-dark-800 border-t border-dark-700 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="reveal-right text-center lg:text-left flex justify-center">
-                <h2 class="text-3xl font-extrabold text-white mb-12 tracking-tight uppercase">Sobre Mim</h2>
-            </div>
-            <div class="grid lg:grid-cols-2 gap-8 items-center">
-                <div class="reveal-left relative lg:mb-0">
-                    <img src="img/WhatsApp Image 2026-02-25 at 08.33.21.jpeg" alt="Sobre o Treinador"
-                        class="w-full max-w-md mx-auto rounded-lg shadow-2xl border border-dark-700 grayscale hover:grayscale-0 transition duration-500">
+                    class="reveal delay-200 inline-flex flex-col sm:flex-row items-center justify-center gap-4 bg-dark-900 border border-brand-500/40 px-6 sm:px-8 py-4 rounded-full shadow-[0_0_25px_rgba(176,11,11,0.25)] hover:shadow-[0_0_35px_rgba(176,11,11,0.4)] transition-shadow duration-500 cursor-default relative overflow-hidden">
                     <div
-                        class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30">
-                    </div>
-                </div>
-
-                <div class="space-y-6 text-gray-300 leading-relaxed text-lg">
-                    <p class="reveal-right delay-100 font-semibold text-white text-xl border-l-2 border-brand-400 pl-4">
-                        "Eu não entrei na área por acaso."
-                    </p>
-
-                    <p class="reveal-right delay-200">Sou <strong class="text-white">ex-obeso.</strong> Transformei meu
-                        próprio corpo. Reconstruí minha identidade através da
-                        <strong class="text-white">disciplina.</strong>
-                    </p>
-                    <p class="reveal-right delay-300">Escolhi essa profissão por opção — não por conveniência.</p>
-                    <p class="reveal-right delay-400">Ao longo dos anos, mudei meu físico diversas vezes. Vivi fases de
-                        emagrecimento, construção
-                        muscular e preparação competitiva. <strong class="text-white">Competi no fisiculturismo
-                        </strong>e conquistei <strong class="text-white">cinco troféus como atleta</strong>.</p>
-                    <p class="reveal-right delay-500">Como treinador, acumulo <strong class="text-brand-400">mais de 20
-                            troféus</strong> preparando
-                        atletas e acompanhando evoluções reais.</p>
-
-                    <div class="reveal delay-200 my-6 p-6 bg-dark-900 border border-dark-700 rounded-lg">
-                        <p class="italic text-gray-400 text-center text-xl">Mas a consultoria não é sobre
-                            palco.<br><strong class="text-white">É sobre performance na vida real.</strong></p>
+                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-400 to-transparent opacity-50">
                     </div>
 
-                    <p class="reveal-right delay-200">Hoje, aplico o mesmo nível de estratégia utilizado em preparação
-                        competitiva — adaptado para
-                        homens e mulheres que querem evoluir sem viver como atletas.</p>
-                    <p class="reveal-right delay-300">Minha abordagem une experiência prática, ciência do treinamento e
-                        controle absoluto de variáveis.</p>
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-dark-900 grayscale object-cover"
+                            src="https://i.pravatar.cc/100?img=11" alt="Aluno">
+                        <img class="w-10 h-10 rounded-full border-2 border-dark-900 grayscale object-cover"
+                            src="https://i.pravatar.cc/100?img=33" alt="Aluno">
+                        <img class="w-10 h-10 rounded-full border-2 border-dark-900 grayscale object-cover"
+                            src="https://i.pravatar.cc/100?img=12" alt="Aluno">
+                        <img class="w-10 h-10 rounded-full border-2 border-dark-900 grayscale object-cover"
+                            src="https://i.pravatar.cc/100?img=60" alt="Aluno">
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-dark-900 bg-brand-500 flex items-center justify-center text-white text-xs font-bold z-10">
+                            +1.5k
+                        </div>
+                    </div>
 
-                    <p class="reveal-right delay-400 font-semibold text-white">Porque eu já estive dos dois lados:<br>
-                        <span class="text-brand-400">Do extremo da transformação. E do alto nível de performance.</span>
-                    </p>
-
-                    <p class="reveal-scale delay-500 text-xl font-bold text-white uppercase mt-4">A ORM TEAM é o
-                        equilíbrio entre esses dois mundos.</p>
+                    <span class="text-white font-medium text-base md:text-lg tracking-wide text-center sm:text-left">
+                        O método que já transformou <br class="sm:hidden"><strong
+                            class="text-brand-400 font-extrabold text-xl">+ de 1.500 alunos.</strong>
+                    </span>
                 </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div
+                    class="reveal-scale delay-100 rounded-xl overflow-hidden border border-dark-700 shadow-2xl hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.15)] transition-all duration-500 group">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.34.jpeg"
+                        alt="Antes e Depois 1"
+                        class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700">
+                </div>
+
+                <div
+                    class="reveal-scale delay-200 rounded-xl overflow-hidden border border-dark-700 shadow-2xl hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.15)] transition-all duration-500 group">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.35.jpeg"
+                        alt="Antes e Depois 2"
+                        class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700">
+                </div>
+
+                <div
+                    class="reveal-scale delay-300 rounded-xl overflow-hidden border border-dark-700 shadow-2xl hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.15)] transition-all duration-500 group">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59 (1).jpeg"
+                        alt="Antes e Depois 3"
+                        class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700">
+                </div>
+
+                <div
+                    class="reveal-scale delay-400 rounded-xl overflow-hidden border border-dark-700 shadow-2xl hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.15)] transition-all duration-500 group">
+                    <img style="height: 100%;" src="img/WhatsApp Image 2026-02-26 at 10.03.59.jpeg"
+                        alt="Antes e Depois 4"
+                        class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700">
+                </div>
+            </div>
+
+            <!-- <div
+                class="reveal delay-300 mt-24 bg-dark-900 border border-dark-700 p-8 md:p-12 rounded-2xl text-center max-w-4xl mx-auto relative overflow-hidden shadow-2xl">
+                <div
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-brand-500 to-transparent">
+                </div>
+
+                <h3 class="text-2xl md:text-3xl font-extrabold mb-8 text-white tracking-wide">Aqui Você Conquista:
+                </h3>
+
+                <div class="flex flex-col md:flex-row flex-wrap justify-center gap-6 md:gap-8 text-left md:text-center">
+                    <span class="flex items-center text-gray-300 text-lg font-medium justify-center">
+                        <span class="text-brand-500 text-2xl mr-3">🚀</span> Evolução constante
+                    </span>
+                    <span class="flex items-center text-gray-300 text-lg font-medium justify-center">
+                        <span class="text-brand-500 text-2xl mr-3">💪</span> Mais força e presença
+                    </span>
+                    <span class="flex items-center text-gray-300 text-lg font-medium justify-center">
+                        <span class="text-brand-500 text-2xl mr-3">⚡</span> Energia para o dia a dia
+                    </span>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <section id="depoimentos" class="py-24 bg-dark-900 border-t border-dark-800 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <div class="text-center mb-16 reveal flex flex-col items-center">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                    Quem Já Vive a <span class="gradient-text">Alta Performance</span>
+                </h2>
+            </div>
+
+            <div class="relative max-w-6xl mx-auto">
+
+                <button id="btn-prev"
+                    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-20 w-12 h-12 bg-dark-800 border border-dark-700 hover:border-brand-500 rounded-full items-center justify-center text-white transition-all shadow-lg hover:shadow-[0_0_15px_rgba(176,11,11,0.3)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+
+                <div id="carrossel-depoimentos"
+                    class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar gap-6 pb-8 pt-4 px-4 md:px-8">
+
+                    <div
+                        class="reveal-scale delay-100 min-w-[300px] md:min-w-[400px] max-w-[400px] bg-dark-800 border border-dark-700 p-8 rounded-2xl snap-center flex flex-col justify-between hover:border-brand-500/30 transition-colors">
+                        <div>
+                            <div class="flex text-yellow-400 mb-4 text-xl">
+                                ★★★★★
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed italic mb-6">
+                                "Trabalho 10h por dia e achava impossível ter um físico de respeito. O método foi direto
+                                ao ponto. Em 3 meses mudei mais que em 2 anos de academia."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="Foto Cliente"
+                                class="w-14 h-14 rounded-full object-cover border-2 border-brand-500 grayscale">
+                            <div>
+                                <h4 class="text-white font-bold">Carlos Mendes</h4>
+                                <p class="text-brand-400 text-sm font-medium">Empresário, 34 anos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="reveal-scale delay-200 min-w-[300px] md:min-w-[400px] max-w-[400px] bg-dark-800 border border-dark-700 p-8 rounded-2xl snap-center flex flex-col justify-between hover:border-brand-500/30 transition-colors">
+                        <div>
+                            <div class="flex text-yellow-400 mb-4 text-xl">
+                                ★★★★★
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed italic mb-6">
+                                "Treino curto, intenso e uma dieta que cabe na minha rotina de viagens. Finalmente um
+                                treinador que entende quem tem a vida corrida."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
+                            <img src="https://i.pravatar.cc/150?img=33" alt="Foto Cliente"
+                                class="w-14 h-14 rounded-full object-cover border-2 border-brand-500 grayscale">
+                            <div>
+                                <h4 class="text-white font-bold">Roberto Silva</h4>
+                                <p class="text-brand-400 text-sm font-medium">Engenheiro, 41 anos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="reveal-scale delay-300 min-w-[300px] md:min-w-[400px] max-w-[400px] bg-dark-800 border border-dark-700 p-8 rounded-2xl snap-center flex flex-col justify-between hover:border-brand-500/30 transition-colors">
+                        <div>
+                            <div class="flex text-yellow-400 mb-4 text-xl">
+                                ★★★★★
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed italic mb-6">
+                                "Sempre fui o cara que começava e parava. O acompanhamento me deu a direção e a cobrança
+                                que eu precisava. Meu físico e minha disposição mudaram completamente."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
+                            <img src="https://i.pravatar.cc/150?img=12" alt="Foto Cliente"
+                                class="w-14 h-14 rounded-full object-cover border-2 border-brand-500 grayscale">
+                            <div>
+                                <h4 class="text-white font-bold">André Lemos</h4>
+                                <p class="text-brand-400 text-sm font-medium">Médico, 38 anos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="reveal-scale delay-400 min-w-[300px] md:min-w-[400px] max-w-[400px] bg-dark-800 border border-dark-700 p-8 rounded-2xl snap-center flex flex-col justify-between hover:border-brand-500/30 transition-colors">
+                        <div>
+                            <div class="flex text-yellow-400 mb-4 text-xl">
+                                ★★★★★
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed italic mb-6">
+                                "Eu achava que precisava morar na academia para ter resultado. Hoje treino 45 minutos
+                                com a estratégia certa e o espelho não mente. Excelente trabalho."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
+                            <img src="https://i.pravatar.cc/150?img=60" alt="Foto Cliente"
+                                class="w-14 h-14 rounded-full object-cover border-2 border-brand-500 grayscale">
+                            <div>
+                                <h4 class="text-white font-bold">Marcelo Costa</h4>
+                                <p class="text-brand-400 text-sm font-medium">Desenvolvedor, 29 anos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button id="btn-next"
+                    class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-20 w-12 h-12 bg-dark-800 border border-dark-700 hover:border-brand-500 rounded-full items-center justify-center text-white transition-all shadow-lg hover:shadow-[0_0_15px_rgba(176,11,11,0.3)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="md:hidden text-center text-brand-400 text-sm mt-2 flex justify-center items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-4 h-4 animate-bounce-horizontal">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                </svg>
+                Deslize para ver mais
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-4 h-4 animate-bounce-horizontal-reverse">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="metodo" class="py-24 bg-dark-800 relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <div class="text-center mb-20 reveal flex flex-col items-center">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
+                    Como Funciona o <span class="gradient-text">Método</span>
+                </h2>
+                <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                    Quatro pilares fundamentais desenhados para garantir que sua evolução seja previsível, constante e
+                    sem margem para erros.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                <div
+                    class="reveal-left delay-100 bg-dark-800 p-8 md:p-10 rounded-2xl border border-dark-700 hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.1)] transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-dark-700 group-hover:bg-brand-500 transition-colors duration-500">
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl font-extrabold text-transparent transition-all duration-500"
+                            style="-webkit-text-stroke: 1px #B00B0B; opacity: 0.5;">01</span>
+                        <h3
+                            class="text-2xl font-bold text-white ml-4 group-hover:text-brand-400 transition-colors duration-300">
+                            Avaliação Física e Postural</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        O ponto de partida. Análise completa da sua estrutura atual por meio de fotos, identificação de
+                        assimetrias e correção de padrões de movimento. Construímos a base antes de colocar a carga.
+                    </p>
+                </div>
+
+                <div
+                    class="reveal-right delay-200 bg-dark-800 p-8 md:p-10 rounded-2xl border border-dark-700 hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.1)] transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-dark-700 group-hover:bg-brand-500 transition-colors duration-500">
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl font-extrabold text-transparent transition-all duration-500"
+                            style="-webkit-text-stroke: 1px #B00B0B; opacity: 0.5;">02</span>
+                        <h3
+                            class="text-2xl font-bold text-white ml-4 group-hover:text-brand-400 transition-colors duration-300">
+                            Treinos 100% Personalizados</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        Chega de fichas genéricas de gaveta. Seu planejamento é montado de acordo com a sua rotina, o
+                        maquinário que você tem disponível e o seu nível real de treinamento. Sessões diretas, intensas
+                        e com foco total em eficiência.
+                    </p>
+                </div>
+
+                <div
+                    class="reveal-left delay-300 bg-dark-800 p-8 md:p-10 rounded-2xl border border-dark-700 hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.1)] transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-dark-700 group-hover:bg-brand-500 transition-colors duration-500">
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl font-extrabold text-transparent transition-all duration-500"
+                            style="-webkit-text-stroke: 1px #B00B0B; opacity: 0.5;">03</span>
+                        <h3
+                            class="text-2xl font-bold text-white ml-4 group-hover:text-brand-400 transition-colors duration-300">
+                            Acompanhamento no Grupo VIP</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        O ambiente molda o resultado. Você terá acesso ao nosso ecossistema exclusivo para networking,
+                        tirar dúvidas sobre execuções e estar lado a lado com homens e mulheres que buscam o mesmo nível
+                        de performance que você.
+                    </p>
+                </div>
+
+                <div
+                    class="reveal-right delay-400 bg-dark-800 p-8 md:p-10 rounded-2xl border border-dark-700 hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(176,11,11,0.1)] transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-dark-700 group-hover:bg-brand-500 transition-colors duration-500">
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <span class="text-5xl font-extrabold text-transparent transition-all duration-500"
+                            style="-webkit-text-stroke: 1px #B00B0B; opacity: 0.5;">04</span>
+                        <h3
+                            class="text-2xl font-bold text-white ml-4 group-hover:text-brand-400 transition-colors duration-300">
+                            Ajustes Quinzenais</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        O corpo muda, a estratégia também. A cada 15 dias, faremos uma análise rigorosa do seu
+                        progresso, fotos e métricas para ajustar as variáveis de treino e alimentação. É assim que
+                        garantimos que você nunca estagne.
+                    </p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- <section id="aplicacao"
-        class="py-16 bg-dark-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-dark-800 via-dark-900 to-dark-900">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">📋 Aplicação</h2>
-                <p class="text-gray-400">Preencha o formulário abaixo para analisarmos o seu perfil. Entraremos em
-                    contato via WhatsApp.</p>
+    <section id="diferenciais" class="py-24 bg-dark-900 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-20">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal flex flex-col items-center">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                    O Diferencial <span class="gradient-text">ORM TEAM</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Esqueça o copia e cola. Aqui, cada detalhe é milimetricamente calculado para construir um físico de
+                    elite com a máxima eficiência que a sua rotina exige.
+                </p>
             </div>
 
-            <form class="reveal delay-200 glass-panel p-6 md:p-10 rounded-xl space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Nome Completo</label>
-                        <input type="text" placeholder="Seu nome"
-                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
-                            required>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Idade</label>
-                        <input type="number" placeholder="Sua idade"
-                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
-                            required>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Profissão</label>
-                    <input type="text" placeholder="Com o que você trabalha?"
-                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
-                        required>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Rotina de treino atual</label>
-                    <textarea rows="2" placeholder="Ex: Treino 3x na semana, mas sem constância..."
-                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
-                        required></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Objetivo principal</label>
-                    <input type="text" placeholder="Ex: Perder gordura, Ganhar massa, Melhorar postura"
-                        class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-500 transition"
-                        required>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Disponibilidade semanal</label>
-                        <select
-                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-gray-300 focus:outline-none focus:border-brand-500 transition"
-                            required>
-                            <option value="">Selecione...</option>
-                            <option value="2-3">2 a 3 dias na semana</option>
-                            <option value="4-5">4 a 5 dias na semana</option>
-                            <option value="6-7">6 a 7 dias na semana</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Investimento previsto</label>
-                        <select
-                            class="w-full bg-dark-900 border border-dark-700 rounded px-4 py-3 text-gray-300 focus:outline-none focus:border-brand-500 transition"
-                            required>
-                            <option value="">Selecione...</option>
-                            <option value="mensal">Mensal</option>
-                            <option value="trimestral">Trimestral</option>
-                            <option value="anual">Anual</option>
-                        </select>
+                <div
+                    class="reveal delay-100 bg-dark-900 border border-dark-700 p-6 sm:p-8 rounded-2xl hover:-translate-y-2 hover:border-brand-500/50 hover:shadow-[0_10px_30px_rgba(176,11,11,0.15)] transition-all duration-300 group">
+                    <div class="flex flex-row sm:flex-col items-center gap-4 sm:gap-0">
+                        <div
+                            class="w-14 h-14 shrink-0 bg-dark-800 border border-dark-700 rounded-xl flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all duration-300 mb-0 sm:mb-6 shadow-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 tracking-wide">Avaliação
+                                Postural Detalhada</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                Não prescrevemos treino às cegas. Analisamos sua postura e desvios para corrigir padrões
+                                e
+                                construir um físico simétrico.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="pt-6 border-t border-dark-700 mt-6">
-                    <button type="button"
-                        class="w-full bg-brand-500 hover:bg-brand-400 text-black font-extrabold text-xl py-5 rounded-sm shadow-lg shadow-brand-500/20 transform hover:scale-[1.02] transition duration-300">
-                        👉 Aplicar para Consultoria
-                    </button>
-                    <p class="text-center text-xs text-gray-500 mt-4">Suas informações estão seguras. Analisaremos seu
-                        perfil para garantir que a metodologia é ideal para você.</p>
+                <div
+                    class="reveal delay-200 bg-dark-900 border border-dark-700 p-6 sm:p-8 rounded-2xl hover:-translate-y-2 hover:border-brand-500/50 hover:shadow-[0_10px_30px_rgba(176,11,11,0.15)] transition-all duration-300 group">
+                    <div class="flex flex-row sm:flex-col items-center gap-4 sm:gap-0">
+                        <div
+                            class="w-14 h-14 shrink-0 bg-dark-800 border border-dark-700 rounded-xl flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all duration-300 mb-0 sm:mb-6 shadow-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 15h2.25m8.024-9.724a11.99 11.99 0 013.298 5.613m-3.298-5.613A11.99 11.99 0 0012 3c-3.1 0-5.922 1.185-8.024 3.163M12 3v1m-8.024 2.163A11.99 11.99 0 003 12c0 1.253.193 2.455.55 3.58m16.9 3.58a11.99 11.99 0 01-3.298 5.613M3.55 15.58A11.99 11.99 0 0012 21c3.1 0 5.922-1.185 8.024-3.163M12 21v-1m-8.024-2.163A11.99 11.99 0 013 12c0-1.253.193-2.455.55-3.58M16.5 15h-2.25">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 tracking-wide">Foco em
+                                Pontos Fracos</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                Fichas genéricas criam corpos desproporcionais. Aqui você recebe direcionamento para
+                                focar exatamente
+                                onde você precisa evoluir para atingir simetria absoluta.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </form>
+
+                <div
+                    class="reveal delay-300 bg-dark-900 border border-dark-700 p-6 sm:p-8 rounded-2xl hover:-translate-y-2 hover:border-brand-500/50 hover:shadow-[0_10px_30px_rgba(176,11,11,0.15)] transition-all duration-300 group">
+                    <div class="flex flex-row sm:flex-col items-center gap-4 sm:gap-0">
+                        <div
+                            class="w-14 h-14 shrink-0 bg-dark-800 border border-dark-700 rounded-xl flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all duration-300 mb-0 sm:mb-6 shadow-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 tracking-wide">
+                                Acompanhamento Frequente</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                Você não está sozinho. Analiso suas execuções, monitoro suas cargas e te guio para os
+                                resultados. Acompanhamento frequente de quem respira performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="reveal delay-400 bg-dark-900 border border-dark-700 p-6 sm:p-8 rounded-2xl hover:-translate-y-2 hover:border-brand-500/50 hover:shadow-[0_10px_30px_rgba(176,11,11,0.15)] transition-all duration-300 group">
+                    <div class="flex flex-row sm:flex-col items-center gap-4 sm:gap-0">
+                        <div
+                            class="w-14 h-14 shrink-0 bg-dark-800 border border-dark-700 rounded-xl flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all duration-300 mb-0 sm:mb-6 shadow-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-7 h-7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 tracking-wide">Acesso ao
+                                Grupo VIP</h3>
+                            <p class="text-gray-400 leading-relaxed text-sm">
+                                O ambiente determina o seu nível. Faça parte de uma comunidade exclusiva de networking
+                                com
+                                pessoas que partilham da mesma mentalidade e disciplina.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </section> -->
+    </section>
 
-    <footer class="bg-black py-10 border-t border-dark-800 text-center">
+    <section id="sobre" class="py-24 bg-dark-800 border-t border-dark-700 relative overflow-hidden">
+        <div
+            class="absolute top-1/2 left-0 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 -translate-x-1/2">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+                <div
+                    class="reveal-left relative lg:mb-0 order-2 lg:order-1 mt-10 lg:mt-0 max-w-md mx-auto lg:mx-0 w-full">
+                    <div
+                        class="relative rounded-2xl p-1 bg-gradient-to-br from-dark-700 via-dark-800 to-brand-500/30 shadow-[0_0_40px_rgba(0,0,0,0.6)] group">
+                        <img src="img/WhatsApp Image 2026-02-25 at 08.33.21.jpeg" alt="Sobre o Treinador"
+                            class="w-full rounded-xl object-cover grayscale group-hover:grayscale-0 transition duration-700">
+                    </div>
+
+                    <div
+                        class="absolute -bottom-6 -right-4 sm:-right-8 bg-dark-900 border border-dark-700 p-4 rounded-xl shadow-2xl flex items-center gap-4 reveal-scale delay-300">
+                        <div
+                            class="w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-500 text-2xl">
+                            🏆
+                        </div>
+                        <div>
+                            <p class="text-white font-extrabold text-xl leading-none">+20</p>
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Troféus
+                                Conquistados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2">
+
+                    <div class="text-left mb-8 reveal-right">
+                        <p
+                            class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-4 border-b border-brand-400/30 pb-1 w-fit">
+                            👤 Quem é o seu Treinador
+                        </p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2">
+                            Muito Além da <span class="gradient-text">Teoria</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-6 text-gray-300 leading-relaxed text-lg">
+                        <p
+                            class="reveal-right delay-100 font-semibold text-white text-xl border-l-4 border-brand-500 pl-4 py-1 bg-gradient-to-r from-brand-500/10 to-transparent">
+                            "Eu não entrei na área por acaso."
+                        </p>
+
+                        <p class="reveal-right delay-200">
+                            Sou <strong class="text-white">ex-obeso.</strong> Transformei meu próprio corpo e reconstruí
+                            minha identidade através da <strong class="text-white">disciplina.</strong> Escolhi essa
+                            profissão por opção — não por conveniência.
+                        </p>
+
+                        <div class="reveal-right delay-300 grid sm:grid-cols-2 gap-4 my-8">
+
+                            <div
+                                class="flex sm:block items-start gap-4 bg-dark-900 border border-dark-700 p-5 rounded-xl hover:border-brand-500/30 transition-colors">
+                                <span
+                                    class="flex sm:block items-center justify-center text-brand-500 text-3xl sm:text-2xl shrink-0 bg-dark-800 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none border border-dark-700 sm:border-none mb-0 sm:mb-2">
+                                    🥇
+                                </span>
+                                <div>
+                                    <strong class="text-white block text-base mb-1">Atleta Campeão</strong>
+                                    <p class="text-sm text-gray-400 leading-relaxed">5 troféus conquistados competindo
+                                        no fisiculturismo de alto nível.</p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex sm:block items-start gap-4 bg-dark-900 border border-dark-700 p-5 rounded-xl hover:border-brand-500/30 transition-colors">
+                                <span
+                                    class="flex sm:block items-center justify-center text-brand-500 text-3xl sm:text-2xl shrink-0 bg-dark-800 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none border border-dark-700 sm:border-none mb-0 sm:mb-2">
+                                    📈
+                                </span>
+                                <div>
+                                    <strong class="text-white block text-base mb-1">Treinador Validado</strong>
+                                    <p class="text-sm text-gray-400 leading-relaxed">Mais de 20 troféus preparando
+                                        atletas e moldando físicos reais.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="reveal delay-400 my-6 p-6 bg-gradient-to-br from-dark-900 to-dark-800 border border-dark-700 rounded-xl relative overflow-hidden shadow-lg">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-500"></div>
+                            <p class="italic text-gray-400 text-lg sm:text-xl text-center">
+                                Mas a consultoria não é sobre palco. <br class="hidden sm:block">
+                                <strong class="text-white">É sobre performance na vida real.</strong>
+                            </p>
+                        </div>
+
+                        <p class="reveal-right delay-500">
+                            Hoje, aplico o mesmo nível de estratégia utilizado em preparação competitiva — adaptado para
+                            homens e mulheres que querem evoluir sem viver como atletas. Minha abordagem une experiência
+                            prática, ciência e controle absoluto de variáveis.
+                        </p>
+
+                        <div class="reveal-scale delay-500 mt-8 pt-6 border-t border-dark-700">
+                            <p class="text-lg font-bold text-white uppercase tracking-wide">
+                                A ORM TEAM é o equilíbrio exato entre <br class="hidden xl:block">
+                                <span class="text-brand-500">a transformação e a alta performance.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <div id="floating-cta"
+        class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 opacity-0 translate-y-10 pointer-events-none w-[90%] sm:w-auto">
+        <a href="#aplicacao"
+            class="btn-pulse-glow flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-[8px] shadow-[0_10px_40px_rgba(176,11,11,0.6)] w-full text-center whitespace-nowrap border border-brand-400/30">
+            ⚡ ENTRAR PARA CONSULTORIA VIP
+        </a>
+    </div>
+
+    <footer class="bg-black pt-16 pb-32 border-t border-dark-800 text-center">
         <div class="reveal text-2xl font-extrabold tracking-widest text-white uppercase mb-4">
-            ORM <span class="text-brand-400">TEAM</span>
+            ORM <span class="text-brand-500">TEAM</span>
         </div>
         <p class="reveal delay-100 text-gray-500 text-sm mb-2">&copy; 2026 ORM TEAM. Todos os direitos reservados.</p>
-        <p class="reveal delay-200 text-gray-600 text-xs">Desenvolvido para Alta Performance.</p>
+        <p class="reveal delay-200 text-gray-600 text-xs">Desenvolvido por Pedro Martins.</p>
     </footer>
 
     <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            400: '#B00B0B', // Vermelho Intenso (Agora no Hover)
+                            500: '#8A0505', // Vermelho mais Escuro e Intenso (Botões)
+                            600: '#3A0505', // Vermelho Profundo (Fundos)
+                        },
+                        dark: {
+                            900: '#0A0A0A',
+                            800: '#141414',
+                            700: '#222222',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
-            // Configurações do observador
+            // --- 1. CONFIGURAÇÕES DO OBSERVADOR (ANIMAÇÕES) ---
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.15 // A animação dispara quando 15% do elemento estiver visível na tela
+                threshold: 0.15
             };
 
-            // Função que adiciona a classe 'active' aos elementos
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        // Descomente a linha abaixo se quiser que a animação aconteça APENAS UMA VEZ
-                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // Seleciona todos os elementos que têm as classes de revelação
             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-
-            // Inicia a observação para cada elemento
             revealElements.forEach(el => observer.observe(el));
+
+
+            // --- 2. MÊS ATUAL ---
+            const spanMes = document.getElementById('month'); // Usando o ID que você definiu
+            if (spanMes) {
+                const dataAtual = new Date();
+                const nomeMes = dataAtual.toLocaleString('pt-BR', { month: 'long' });
+                spanMes.textContent = nomeMes.toUpperCase();
+            }
+
+
+            // --- 3. CARROSSEL DE DEPOIMENTOS (NOVA LÓGICA CORRIGIDA) ---
+            const carrossel = document.getElementById('carrossel-depoimentos');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            if (carrossel) {
+                let autoScrollTimer;
+
+                // Função para avançar um card
+                const scrollNext = () => {
+                    // Pega o tamanho exato de 1 card na tela atual + o espaçamento (gap)
+                    const card = carrossel.querySelector('div');
+                    const cardWidth = card ? card.offsetWidth + 24 : 400;
+
+                    // Verifica se chegou ao final (Math.ceil evita bugs de pixels quebrados)
+                    if (Math.ceil(carrossel.scrollLeft + carrossel.clientWidth) >= carrossel.scrollWidth - 10) {
+                        carrossel.scrollTo({ left: 0, behavior: 'smooth' }); // Volta pro início
+                    } else {
+                        carrossel.scrollBy({ left: cardWidth, behavior: 'smooth' }); // Avança
+                    }
+                };
+
+                // Função para voltar um card
+                const scrollPrev = () => {
+                    const card = carrossel.querySelector('div');
+                    const cardWidth = card ? card.offsetWidth + 24 : 400;
+                    carrossel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                };
+
+                // Ativa os botões manuais
+                if (btnNext) btnNext.addEventListener('click', scrollNext);
+                if (btnPrev) btnPrev.addEventListener('click', scrollPrev);
+
+                // Funções de Play e Pause da Rolagem Automática
+                const playCarrossel = () => {
+                    clearInterval(autoScrollTimer);
+                    // Roda a função scrollNext a cada 3.5 segundos
+                    autoScrollTimer = setInterval(scrollNext, 3500);
+                };
+
+                const pauseCarrossel = () => clearInterval(autoScrollTimer);
+
+                // Inicia o carrossel assim que a página carrega
+                playCarrossel();
+
+                // Interrompe a rolagem se o mouse estiver em cima (Computador)
+                carrossel.addEventListener('mouseenter', pauseCarrossel);
+                carrossel.addEventListener('mouseleave', playCarrossel);
+
+                // Interrompe a rolagem se o mouse estiver sobre os botões
+                if (btnNext && btnPrev) {
+                    btnNext.addEventListener('mouseenter', pauseCarrossel);
+                    btnNext.addEventListener('mouseleave', playCarrossel);
+                    btnPrev.addEventListener('mouseenter', pauseCarrossel);
+                    btnPrev.addEventListener('mouseleave', playCarrossel);
+                }
+
+                // Interrompe a rolagem se o usuário tocar na tela (Celular)
+                carrossel.addEventListener('touchstart', pauseCarrossel, { passive: true });
+                carrossel.addEventListener('touchend', playCarrossel, { passive: true });
+            }
+
+
+
+
+
+
+            // --- 4. BOTÃO FLUTUANTE (APARECE FORA DO HEADER) ---
+            const header = document.querySelector('header');
+            const floatingBtn = document.getElementById('floating-cta');
+
+            if (header && floatingBtn) {
+                const headerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Se o header NÃO estiver mais visível na tela
+                        if (!entry.isIntersecting) {
+                            floatingBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                            floatingBtn.classList.add('opacity-100', 'translate-y-0');
+                        } else {
+                            // Se o header voltou para a tela
+                            floatingBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                            floatingBtn.classList.remove('opacity-100', 'translate-y-0');
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.1 // Dispara quando restar apenas 10% do header na tela
+                });
+
+                headerObserver.observe(header);
+            }
+
+
+
+
+
+
+            // --- 5. MENU MOBILE (ÚNICO CONTAINER) ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+            const iconBars = document.getElementById('icon-bars');
+            const iconClose = document.getElementById('icon-close');
+
+            if (mobileMenuBtn && navLinks) {
+                const toggleMenu = () => {
+                    navLinks.classList.toggle('hidden');
+                    navLinks.classList.toggle('flex');
+                    iconBars.classList.toggle('hidden');
+                    iconBars.classList.toggle('block');
+                    iconClose.classList.toggle('hidden');
+                    iconClose.classList.toggle('block');
+                };
+
+                // Evento de clique no botão do menu
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+
+                // Fecha o menu automaticamente ao clicar em qualquer link (apenas no mobile)
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth < 768 && !navLinks.classList.contains('hidden')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>
