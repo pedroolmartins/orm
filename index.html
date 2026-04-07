@@ -7,127 +7,7 @@
     <title>ORM TEAM | Consultoria de Alta Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #0A0A0A;
-            color: #E5E5E5;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .gradient-text {
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            /* Mantido um pouco mais claro para dar leitura no título */
-            background-image: linear-gradient(to right, #B00B0B, #FF4D4D);
-        }
-
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- CLASSES DE ANIMAÇÃO ESTILO APPLE --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active,
-        .reveal-left.active,
-        .reveal-right.active,
-        .reveal-scale.active {
-            opacity: 1;
-            transform: translate(0) scale(1);
-        }
-
-        .delay-100 {
-            transition-delay: 100ms;
-        }
-
-        .delay-200 {
-            transition-delay: 200ms;
-        }
-
-        .delay-300 {
-            transition-delay: 300ms;
-        }
-
-        .delay-400 {
-            transition-delay: 400ms;
-        }
-
-        .delay-500 {
-            transition-delay: 500ms;
-        }
-
-        /* Animação para o botão pulsar e brilhar continuamente */
-        @keyframes pulse-glow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 15px #8A0505;
-                transform: scale(1);
-            }
-
-            50% {
-                box-shadow: 0 0 35px #B00B0B, 0 0 15px #B00B0B;
-                transform: scale(1.03);
-            }
-        }
-
-        .btn-pulse-glow {
-            animation: pulse-glow 2s infinite ease-in-out;
-        }
-
-
-        /* CARROSSEL */
-        /* Esconder barra de rolagem do carrossel */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            /* IE e Edge */
-            scrollbar-width: none;
-            /* Firefox */
-            scroll-behavior: smooth;
-            /* Rolagem suave ao clicar nos botões */
-        }
-
-        .logo-header {
-            max-width: 120px;
-            height: 45px;
-        }
-
-        .logo-footer {
-            max-width: 200px;
-            height: 45px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="antialiased selection:bg-brand-500 selection:text-white" style="max-width: 100%;">
@@ -173,51 +53,53 @@
         </div>
     </nav>
 
-    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+<header class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
-                <div class="text-left space-y-8">
-                    <p
-                        class="reveal text-brand-400 font-bold tracking-widest uppercase text-xs sm:text-sm border-l-2 border-brand-400 pl-3">
-                        Acompanhamento VIP • Método Validado
-                    </p>
-                    <h1 class="reveal delay-100 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white custom-line-height"
-                        style="line-height: 1.2">
-                        Conquiste o físico que <span class="gradient-text">VOCÊ QUER,</span> <br> sem a enrolação <span
-                            class="gradient-text">QUE VOCÊ ODEIA.</span>
-                    </h1>
+            <div class="text-left flex flex-col gap-8 order-2 lg:order-1">
+                
+                <p class="reveal text-brand-400 font-bold tracking-widest uppercase text-xs sm:text-sm border-l-2 border-brand-400 pl-3 active order-1">
+                    Acompanhamento VIP • Método Validado
+                </p>
+                
+                <h1 class="reveal delay-100 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white custom-line-height active order-2"
+                    style="line-height: 1.2">
+                    Conquiste o físico que <span class="gradient-text">VOCÊ QUER,</span> <br> sem a enrolação <span
+                        class="gradient-text">QUE VOCÊ ODEIA.</span>
+                </h1>
 
-                    <p class="reveal text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl">
-                        Chega de desperdiçar energia com fichas de gaveta e dietas insustentáveis. O que te separa do
-                        seu objetivo é uma <strong class="text-white">estratégia de alta performance, cirúrgica e direta
-                            ao ponto</strong>. Você garante a disciplina e eu construo o mapa definitivo para a sua
-                        evolução.
-                    </p>
+                <p class="reveal text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl active order-4 lg:order-3">
+                    Chega de desperdiçar energia com fichas de gaveta e dietas insustentáveis. O que te separa do
+                    seu objetivo é uma <strong class="text-white">estratégia de alta performance, cirúrgica e direta
+                        ao ponto</strong>. Você garante a disciplina e eu construo o mapa definitivo para a sua
+                    evolução.
+                </p>
 
-                    <div class="reveal delay-300 pt-4 flex flex-col items-center gap-3">
-                        <a href="https://wa.me/553182549209?text=Oi%20Jo%C3%A3o.%20Decidi%20que%20quero%20mudar%20meu%20shape." target="_blank"
-                            class="btn-pulse-glow inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold text-lg py-4 px-8 rounded-[8px] border border-brand-400/30 transition-colors duration-300 w-full sm:w-auto text-center">
-                            ⚡ ENTRAR PARA CONSULTORIA VIP
-                        </a>
+                <div class="reveal delay-300 pt-4 flex flex-col items-center lg:items-start gap-3 active order-3 lg:order-4">
+                    <a href="https://wa.me/553182549209?text=Oi%20Jo%C3%A3o.%20Decidi%20que%20quero%20mudar%20meu%20shape."
+                        target="_blank"
+                        class="btn-pulse-glow inline-flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold text-lg py-4 px-8 rounded-[8px] border border-brand-400/30 transition-colors duration-300 w-full sm:w-auto text-center">
+                        ⚡ ENTRAR PARA CONSULTORIA VIP
+                    </a>
 
-                        <div class="flex items-center text-sm text-white font-medium ml-1 mt-2">
-                            <span class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse mr-2"></span>
-                            Poucas vagas disponíveis em&nbsp;<span id="month" class="font-bold text-white"></span>
-                        </div>
+                    <div class="flex items-center text-sm text-white font-medium ml-1 mt-2">
+                        <span class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse mr-2"></span>
+                        Poucas vagas disponíveis em&nbsp;<span id="month" class="font-bold text-white">ABRIL</span>
                     </div>
                 </div>
-
-                <div class="relative w-full mt-10 lg:mt-0 reveal-right delay-200">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent z-10">
-                    </div>
-                    <img src="img/WhatsApp Image 2026-02-25 at 08.33.20 (2).jpeg" alt="Treinador ORM TEAM"
-                        class="w-full h-[450px] lg:h-[600px] object-cover object-top lg:object-center rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
-                </div>
-
             </div>
+
+            <div class="relative w-full order-1 lg:order-2 reveal-right delay-200 active">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent z-10">
+                </div>
+                <img src="img/1C7A75832.jpg" alt="Treinador ORM TEAM"
+                    class="w-full h-[350px] md:h-[450px] lg:h-[600px] object-cover object-top rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+            </div>
+
         </div>
-    </header>
+    </div>
+</header>
 
     <section id="resultados" class="py-24 bg-dark-800 relative overflow-hidden">
         <div
@@ -374,7 +256,8 @@
                             </div>
                             <p class="text-gray-300 text-lg leading-relaxed italic mb-6">
                                 "Tô muito satisfeita com o resultado. -3kg em 14 dias, mesmo sentindo que tô comendo
-                                bastante e ganhando força nos exercícios. Não me sinto mais inchada igual quando iniciei, tinha a sensação que estava enorme quando comecei a consultoria."
+                                bastante e ganhando força nos exercícios. Não me sinto mais inchada igual quando
+                                iniciei, tinha a sensação que estava enorme quando comecei a consultoria."
                             </p>
                         </div>
                         <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
@@ -721,10 +604,10 @@
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                 <div
-                    class="reveal-left relative lg:mb-0 order-2 lg:order-1 mt-10 lg:mt-0 max-w-md mx-auto lg:mx-0 w-full">
+                    class="reveal-left relative lg:mb-0 order-2 lg:order-1 lg:mt-0 max-w-md mx-auto lg:mx-0 w-full">
                     <div
                         class="relative rounded-2xl p-1 bg-gradient-to-br from-dark-700 via-dark-800 to-brand-500/30 shadow-[0_0_40px_rgba(0,0,0,0.6)] group">
-                        <img src="img/WhatsApp Image 2026-02-25 at 08.33.21.jpeg" alt="Sobre o Treinador"
+                        <img src="img/1C7A7445.jpg" alt="Sobre o Treinador"
                             class="w-full rounded-xl object-cover grayscale group-hover:grayscale-0 transition duration-700">
                     </div>
 
@@ -823,7 +706,8 @@
 
     <div id="floating-cta"
         class="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 opacity-0 translate-y-10 pointer-events-none w-[90%] sm:w-auto">
-        <a href="https://wa.me/553182549209?text=Oi%20Jo%C3%A3o.%20Decidi%20que%20quero%20mudar%20meu%20shape." target="_blank"
+        <a href="https://wa.me/553182549209?text=Oi%20Jo%C3%A3o.%20Decidi%20que%20quero%20mudar%20meu%20shape."
+            target="_blank"
             class="btn-pulse-glow flex items-center justify-center bg-brand-500 hover:bg-brand-400 text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-[8px] shadow-[0_10px_40px_rgba(176,11,11,0.6)] w-full text-center whitespace-nowrap border border-brand-400/30">
             ⚡ ENTRAR PARA CONSULTORIA VIP
         </a>
@@ -866,253 +750,7 @@
         </div>
     </div>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            400: '#B00B0B', // Vermelho Intenso (Agora no Hover)
-                            500: '#8A0505', // Vermelho mais Escuro e Intenso (Botões)
-                            600: '#3A0505', // Vermelho Profundo (Fundos)
-                        },
-                        dark: {
-                            900: '#0A0A0A',
-                            800: '#141414',
-                            700: '#222222',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // --- 1. CONFIGURAÇÕES DO OBSERVADOR (ANIMAÇÕES) ---
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-            revealElements.forEach(el => observer.observe(el));
-
-
-            // --- 2. MÊS ATUAL ---
-            const spanMes = document.getElementById('month'); // Usando o ID que você definiu
-            if (spanMes) {
-                const dataAtual = new Date();
-                const nomeMes = dataAtual.toLocaleString('pt-BR', { month: 'long' });
-                spanMes.textContent = nomeMes.toUpperCase();
-            }
-
-
-            // --- 3. CARROSSEL DE DEPOIMENTOS (NOVA LÓGICA CORRIGIDA) ---
-            const carrossel = document.getElementById('carrossel-depoimentos');
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
-
-            if (carrossel) {
-                let autoScrollTimer;
-
-                // Função para avançar um card
-                const scrollNext = () => {
-                    // Pega o tamanho exato de 1 card na tela atual + o espaçamento (gap)
-                    const card = carrossel.querySelector('div');
-                    const cardWidth = card ? card.offsetWidth + 24 : 400;
-
-                    // Verifica se chegou ao final (Math.ceil evita bugs de pixels quebrados)
-                    if (Math.ceil(carrossel.scrollLeft + carrossel.clientWidth) >= carrossel.scrollWidth - 10) {
-                        carrossel.scrollTo({ left: 0, behavior: 'smooth' }); // Volta pro início
-                    } else {
-                        carrossel.scrollBy({ left: cardWidth, behavior: 'smooth' }); // Avança
-                    }
-                };
-
-                // Função para voltar um card
-                const scrollPrev = () => {
-                    const card = carrossel.querySelector('div');
-                    const cardWidth = card ? card.offsetWidth + 24 : 400;
-                    carrossel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-                };
-
-                // Ativa os botões manuais
-                if (btnNext) btnNext.addEventListener('click', scrollNext);
-                if (btnPrev) btnPrev.addEventListener('click', scrollPrev);
-
-                // Funções de Play e Pause da Rolagem Automática
-                const playCarrossel = () => {
-                    clearInterval(autoScrollTimer);
-                    // Roda a função scrollNext a cada 3.5 segundos
-                    autoScrollTimer = setInterval(scrollNext, 3500);
-                };
-
-                const pauseCarrossel = () => clearInterval(autoScrollTimer);
-
-                // Inicia o carrossel assim que a página carrega
-                playCarrossel();
-
-                // Interrompe a rolagem se o mouse estiver em cima (Computador)
-                carrossel.addEventListener('mouseenter', pauseCarrossel);
-                carrossel.addEventListener('mouseleave', playCarrossel);
-
-                // Interrompe a rolagem se o mouse estiver sobre os botões
-                if (btnNext && btnPrev) {
-                    btnNext.addEventListener('mouseenter', pauseCarrossel);
-                    btnNext.addEventListener('mouseleave', playCarrossel);
-                    btnPrev.addEventListener('mouseenter', pauseCarrossel);
-                    btnPrev.addEventListener('mouseleave', playCarrossel);
-                }
-
-                // Interrompe a rolagem se o usuário tocar na tela (Celular)
-                carrossel.addEventListener('touchstart', pauseCarrossel, { passive: true });
-                carrossel.addEventListener('touchend', playCarrossel, { passive: true });
-            }
-
-
-
-
-
-
-            // --- 4. BOTÃO FLUTUANTE (APARECE FORA DO HEADER) ---
-            const header = document.querySelector('header');
-            const floatingBtn = document.getElementById('floating-cta');
-
-            if (header && floatingBtn) {
-                const headerObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        // Se o header NÃO estiver mais visível na tela
-                        if (!entry.isIntersecting) {
-                            floatingBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                            floatingBtn.classList.add('opacity-100', 'translate-y-0');
-                        } else {
-                            // Se o header voltou para a tela
-                            floatingBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                            floatingBtn.classList.remove('opacity-100', 'translate-y-0');
-                        }
-                    });
-                }, {
-                    root: null,
-                    threshold: 0.1 // Dispara quando restar apenas 10% do header na tela
-                });
-
-                headerObserver.observe(header);
-            }
-
-
-
-
-
-
-            // --- 5. MENU MOBILE (ÚNICO CONTAINER) ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const navLinks = document.getElementById('nav-links');
-            const iconBars = document.getElementById('icon-bars');
-            const iconClose = document.getElementById('icon-close');
-
-            if (mobileMenuBtn && navLinks) {
-                const toggleMenu = () => {
-                    navLinks.classList.toggle('hidden');
-                    navLinks.classList.toggle('flex');
-                    iconBars.classList.toggle('hidden');
-                    iconBars.classList.toggle('block');
-                    iconClose.classList.toggle('hidden');
-                    iconClose.classList.toggle('block');
-                };
-
-                // Evento de clique no botão do menu
-                mobileMenuBtn.addEventListener('click', toggleMenu);
-
-                // Fecha o menu automaticamente ao clicar em qualquer link (apenas no mobile)
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth < 768 && !navLinks.classList.contains('hidden')) {
-                            toggleMenu();
-                        }
-                    });
-                });
-            }
-
-
-
-
-
-
-            //MODAL
-            const modal = document.getElementById('testimonial-modal');
-            const modalBox = document.getElementById('modal-content-box');
-            const closeBtn = document.getElementById('close-modal-btn');
-            const openBtns = document.querySelectorAll('.open-modal-btn');
-
-            // Elementos dentro do modal que receberão os dados
-            const modalText = document.getElementById('modal-text');
-            const modalName = document.getElementById('modal-name');
-            const modalRole = document.getElementById('modal-role');
-            const modalImg = document.getElementById('modal-img');
-
-            // Função para abrir o modal
-            const openModal = (btn) => {
-                // 1. Injeta os dados do botão no modal
-                modalText.textContent = `"${btn.dataset.text}"`;
-                modalName.textContent = btn.dataset.name;
-                modalRole.textContent = btn.dataset.role;
-
-                // 2. Mostra o modal e aplica animações
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-
-                // Timeout minúsculo para garantir que o display: flex foi aplicado antes da opacidade mudar
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modalBox.classList.remove('scale-95');
-                    modalBox.classList.add('scale-100');
-                }, 10);
-
-                // Bloqueia o scroll da página de fundo
-                document.body.style.overflow = 'hidden';
-            };
-
-            // Função para fechar o modal
-            const closeModal = () => {
-                // Inicia a animação de saída
-                modal.classList.add('opacity-0');
-                modalBox.classList.remove('scale-100');
-                modalBox.classList.add('scale-95');
-
-                // Aguarda a animação (300ms) terminar para esconder o elemento
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                    document.body.style.overflow = ''; // Devolve o scroll da página
-                }, 300);
-            };
-
-            // Adiciona os eventos de clique
-            openBtns.forEach(btn => btn.addEventListener('click', () => openModal(btn)));
-            closeBtn.addEventListener('click', closeModal);
-
-            // Fecha o modal se o usuário clicar fora da caixa principal (no fundo escuro)
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
-
-            // Fecha o modal com a tecla ESC
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
-            });
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

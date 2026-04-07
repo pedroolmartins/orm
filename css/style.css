@@ -1,0 +1,118 @@
+body {
+    background-color: #0A0A0A;
+    color: #E5E5E5;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    /* Mantido um pouco mais claro para dar leitura no título */
+    background-image: linear-gradient(to right, #B00B0B, #FF4D4D);
+}
+
+.glass-panel {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- CLASSES DE ANIMAÇÃO ESTILO APPLE --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active,
+.reveal-left.active,
+.reveal-right.active,
+.reveal-scale.active {
+    opacity: 1;
+    transform: translate(0) scale(1);
+}
+
+.delay-100 {
+    transition-delay: 100ms;
+}
+
+.delay-200 {
+    transition-delay: 200ms;
+}
+
+.delay-300 {
+    transition-delay: 300ms;
+}
+
+.delay-400 {
+    transition-delay: 400ms;
+}
+
+.delay-500 {
+    transition-delay: 500ms;
+}
+
+/* Animação para o botão pulsar e brilhar continuamente */
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px #8A0505;
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 35px #B00B0B, 0 0 15px #B00B0B;
+        transform: scale(1.03);
+    }
+}
+
+.btn-pulse-glow {
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+
+/* CARROSSEL */
+/* Esconder barra de rolagem do carrossel */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE e Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    scroll-behavior: smooth;
+    /* Rolagem suave ao clicar nos botões */
+}
+
+.logo-header {
+    max-width: 120px;
+    height: 45px;
+}
+
+.logo-footer {
+    max-width: 200px;
+    height: 45px;
+}
