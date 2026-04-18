@@ -195,7 +195,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para abrir o modal
     const openModal = (btn) => {
         // 1. Injeta os dados do botão no modal
-        modalText.textContent = `"${btn.dataset.text}"`;
+        let texto = btn.getAttribute('data-text');
+
+        // 1. Transforma os "Enters" reais do texto em <br>
+        texto = texto.replace(/\n/g, '<br>');
+
+        // 2. Adiciona <br> após "..." ou ".", exceto no último ponto do texto.
+        texto = texto.replace(/(\.{3}|\.)(?!\d)(?!\s*$)\s*(?!<br>)/g, '$1<br><br>');
+
+        // Aplica no HTML
+        modalText.innerHTML = texto;
         modalName.textContent = btn.dataset.name;
         modalRole.textContent = btn.dataset.role;
 
@@ -205,6 +214,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Timeout minúsculo para garantir que o display: flex foi aplicado antes da opacidade mudar
         setTimeout(() => {
+            // Reseta o scroll do texto para o topo toda vez que o modal abre
+            modalText.scrollTop = 0;
+            
             modal.classList.remove('opacity-0');
             modalBox.classList.remove('scale-95');
             modalBox.classList.add('scale-100');

@@ -116,3 +116,7 @@ body {
     max-width: 200px;
     height: 45px;
 }
+
+#modal-content-box {
+    max-height: 80dvh;
+}
