@@ -20,7 +20,129 @@ tailwind.config = {
     }
 }
 
+
+// Array contendo todos os dados dos depoimentos
+const dadosDepoimentos = [
+    {
+        nome: "Bárbara Sousa Rodrigues",
+        profissaoIdade: "Estudante de Educação Física, 30 anos",
+        texto: `Me chamo Bárbara Sousa Rodrigues, tenho 30 anos, sou formada em Direito e estudante de Educação Física.
+        A minha experiência com o João foi, sem dúvida, uma experiência incrível. Comecei com ele no online, onde ele montava minhas fichas de treino, e depois tive a oportunidade de treinar presencialmente com ele por aproximadamente dois anos.
+        O João não foi apenas um personal trainer para mim. Ele foi um verdadeiro treinador. Não estava ali só para me acompanhar, mas para me ensinar a treinar de verdade, e eu aprendi. Aprendi a ter consciência, técnica e disciplina dentro do treino. Foi através dele que desenvolvi ainda mais amor pelo esporte, a ponto de decidir cursar Educação Física. Cheguei a um nível físico que eu jamais imaginei alcançar, e isso foi resultado direto do trabalho, dedicação e profissionalismo dele.
+        Inclusive, ver o amor e o comprometimento do João com a profissão foi uma das coisas que mais me influenciaram na minha decisão de entrar para a área.
+        Indico o João de olhos fechados. Sempre indiquei e continuarei indicando. Ele é um profissional excepcional, extremamente cuidadoso, educado, dedicado e sempre preocupado em entregar o melhor para seus alunos.
+        O período em que treinei com ele foi, sem dúvida, a fase em que tive o meu melhor físico.
+        Hoje, como estudante de Educação Física e iniciando minha atuação na área, posso afirmar que muito do que sei, do que sou e do que aplico, veio através dos ensinamentos do João. Sempre falo para os meus alunos que grande parte do meu conhecimento vem de ter tido um excelente professor por trás. Se você procura um profissional de excelência, pode ter certeza: você estará em ótimas mãos com o João.`,
+        delay: 400
+    },
+    {
+        nome: "Francesco Calixto",
+        profissaoIdade: "Ator, 26 anos",
+        texto: `Eu fiz um processo completo de consultoria com o João, desde alimentação, treino de musculação, cardios e suplementação, logo no início percebi uma flexibilidade e eficiência extraordinária em seu trabalho, adaptando a consultoria de acordo com minha rotina e limitações para meu bem estar no processo. Foi um divisor de águas na minha percepção sobre manter uma vida saudável sem peso psicológico, descobri que dá pra se ter um corpo e mente saudáveis com um processo prazeroso, digo isso principalmente no meu caso pois sou vegetariano. João trouxe todo seu conhecimento para que minha alimentação fosse completa com todos micros e macros necessários para minha evolução. Se eu fosse resumir a consultoria dele em uma palavra, diria que ele é um profissional "proeficiente".`,
+        delay: 100
+    },
+    {
+        nome: "Vanessa Mendes",
+        profissaoIdade: "Engenheira, 30 anos",
+        texto: `Quero te agradecer de coração por tudo que você fez por durante o processo de emagrecimento. Você não transformou só o meu corpo… você transformou a minha mente, minha forma de pensar e de agir todos os dias.\n\nHoje eu me sinto mais forte, mais disciplinada e, principalmente, mais constante, algo que eu nunca consegui manter antes. Você me ensinou que não é sobre perfeição, é sobre persistência, e isso mudou completamente minha relação com os treinos e com a dieta.\n\nA minha forma de enxergar a comida também mudou. Antes era algo cheio de culpa e exageros, e hoje eu vejo como cuidado, como combustível pro meu corpo e pra minha evolução.\n\nE uma coisa que eu faço questão de reconhecer: hoje em dia é muito difícil encontrar um profissional tão competente, dedicado e realmente comprometido com cada aula como você é. Isso faz toda a diferença.\n\nSou muito grata por cada orientação, por cada puxão de orelha e por acreditar em mim até quando eu mesma duvidei. Esse processo foi muito além do físico… foi transformação de vida mesmo 🤍`,
+        delay: 100
+    },
+    {
+        nome: "Dra Indyanara",
+        profissaoIdade: "Advogada, 35 anos",
+        texto: `Indiscutível o profissionalismo e conhecimento do João. Treinos simples, mas que causam impacto significativo no corpo, posso dizer, por experiência própria, que com pouco tempo já se vê resultados. A consultoria é realmente um investimento que vale a pena, pra se ter saúde e óbvio alcançar um corpo bonito e harmônico. João é sempre presente, detalhista e atencioso às demandas do aluno, fazendo alterações que são importantes. Um cara extremamente sério e comprometido com o que faz. Obrigada pelo acompanhamento, João. Estou colhendo frutos bons, através das suas orientações.`,
+        delay: 100
+    },
+    {
+        nome: "Isabella Freitas",
+        profissaoIdade: "Enfermeira, 25 anos",
+        texto: `Tô muito satisfeita com o resultado. -3kg em 14 dias, mesmo sentindo que tô comendo bastante e ganhando força nos exercícios. Não me sinto mais inchada igual quando iniciei, tinha a sensação que estava enorme quando comecei a consultoria.`,
+        delay: 200
+    },
+    {
+        nome: "Dr Lucas Varela",
+        profissaoIdade: "Advogado, 28 anos",
+        texto: `O foco tem sido o maior diferencial e aprendizado desse processo todo e é algo que estou utilizando na minha vida. Nesse momento estou enfrentando diversas mudanças profissionais e financeiras que esse foco e determinação adquiridos nesse processo estao me dando confiança pra enfrentar.`,
+        delay: 300
+    },
+    {
+        nome: "Dr Leo Nunes",
+        profissaoIdade: "Médico, 47 anos",
+        texto: `Tu tem um jeito de conduzir que motiva sem pressionar, corrige sem humilhar, incentiva sem iludir.\n\nE isso cria um ambiente onde eu não treino só pra mudar o físico, mas pra melhorar como ser humano mesmo.\n\nTeu impacto vai além do treino: é disciplina, é autoestima, é cuidado, é presença.\n\nTu me fez acreditar que eu posso mais do que eu imaginava, e isso fica. Esse é o tipo de coisa que transforma.`,
+        delay: 400
+    },
+    {
+        nome: "Dra Jessica Poline",
+        profissaoIdade: "Dentista, 24 anos",
+        texto: `E hoje eu tive uma percepção muito boa. Eu nunca, NUNCA consegui colocar mais que 25, 30kg nessa máquina de elevação pélvica. Ficava muito pesado e eu sentia que meu glúteo não conseguia sustentar a força. E desde então, treinando glúteo 3x na semana como você fez, meu glúteo ganhou uma força surreal 🥺 hoje fiquei tão feliz que eu consegui fazer 45kg naquela máquina! Kkkk parece pouco, mas tipo, eu nunca consegui sair de 25.`,
+        delay: 400
+    },
+];
+
+// Função para renderizar os depoimentos no HTML
+function renderizarDepoimentos() {
+    const container = document.getElementById('carrossel-depoimentos');
+    const limiteCaracteres = 200
+
+    // Limpa o container por segurança
+    container.innerHTML = '';
+
+    dadosDepoimentos.forEach(depoimento => {
+        const card = document.createElement('div');
+        card.className = `reveal-scale delay-${depoimento.delay} min-w-[300px] md:min-w-[400px] max-w-[400px] bg-dark-800 border border-dark-700 p-8 rounded-2xl snap-center flex flex-col justify-between hover:border-brand-500/30 transition-colors`;
+
+        // Lógica de truncamento de texto
+        let textoExibido = depoimento.texto;
+        let precisaBotao = false;
+
+        if (depoimento.texto.length > limiteCaracteres) {
+            // Corta o texto no limite e adiciona os 3 pontinhos
+            textoExibido = depoimento.texto.substring(0, limiteCaracteres).trim() + '...';
+            precisaBotao = true;
+        }
+
+        // Prepara o botão condicionalmente
+        let botaoHTML = '';
+        if (precisaBotao) {
+            botaoHTML = `
+                <button
+                    class="open-modal-btn text-brand-400 hover:text-brand-300 text-sm font-semibold text-left mb-6 transition-colors focus:outline-none"
+                    data-text="${depoimento.texto.replace(/"/g, '&quot;')}"
+                    data-name="${depoimento.nome}" 
+                    data-role="${depoimento.profissaoIdade}">
+                    Ler depoimento completo
+                </button>
+            `;
+        }
+
+        // Monta o conteúdo interno do card (adicionando as aspas duplas no texto exibido)
+        card.innerHTML = `
+            <div>
+                <div class="flex text-yellow-400 mb-4 text-xl">
+                    ★★★★★
+                </div>
+                <p class="text-gray-300 text-lg leading-relaxed italic mb-6 whitespace-pre-line">
+                    "${textoExibido}"
+                </p>
+            </div>
+            ${botaoHTML}
+            <div class="flex items-center gap-4 mt-auto border-t border-dark-700 pt-6">
+                <div>
+                    <h4 class="text-white font-bold">${depoimento.nome}</h4>
+                    <p class="text-brand-400 text-sm font-medium">${depoimento.profissaoIdade}</p>
+                </div>
+            </div>
+        `;
+
+        // Adiciona o card ao container
+        container.appendChild(card);
+    });
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    renderizarDepoimentos();
+
     // --- 1. CONFIGURAÇÕES DO OBSERVADOR (ANIMAÇÕES) ---
     const observerOptions = {
         root: null,
@@ -216,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             // Reseta o scroll do texto para o topo toda vez que o modal abre
             modalText.scrollTop = 0;
-            
+
             modal.classList.remove('opacity-0');
             modalBox.classList.remove('scale-95');
             modalBox.classList.add('scale-100');
