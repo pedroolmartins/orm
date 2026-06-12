@@ -1,25 +1,3 @@
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                brand: {
-                    400: '#B00B0B', // Vermelho Intenso (Agora no Hover)
-                    500: '#8A0505', // Vermelho mais Escuro e Intenso (Botões)
-                    600: '#3A0505', // Vermelho Profundo (Fundos)
-                },
-                dark: {
-                    900: '#0A0A0A',
-                    800: '#141414',
-                    700: '#222222',
-                }
-            },
-            fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-            }
-        }
-    }
-}
-
 
 // Array contendo todos os dados dos depoimentos
 const dadosDepoimentos = [

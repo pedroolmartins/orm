@@ -1,5 +1,9 @@
+const path = require('path');
 module.exports = {
-  content: ["./*.html", "./js/**/*.js"],
+  content: [
+    path.join(__dirname, '*.html'),
+    path.join(__dirname, 'js', '**', '*.js')
+  ],
   theme: {
     extend: {
       colors: {
