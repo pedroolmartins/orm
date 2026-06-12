@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compress": "node compress.js",
+    "build:css": "npx tailwindcss@3.4.1 -i ./input.css -o ./css/tailwind.css -c ./tailwind.config.js --minify"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "homepage": "https://github.com/pedroolmartins/orm#readme",
   "devDependencies": {
     "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "sharp": "^0.35.1"
   }
 }
